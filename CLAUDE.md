@@ -58,6 +58,7 @@ uv run --group waitlist waitlist-server.py
    - `ai-providers.js` - Multi-LLM integration
    - `template-engine.js` - Advanced template system
    - `design-system.js` - Component library
+   - `i18n.js` - Internationalization system
 
 2. **Backend Servers**:
    - `server.py` - Main app CORS proxy server (port 8000)
@@ -126,6 +127,7 @@ SENDER_NAME=SlideCraft AI Team
 - **Multi-LLM Architecture**: `ai-providers.js` contains provider abstractions
 - **Template System**: `template-engine.js` handles 12 professional templates
 - **Design System**: `design-system.js` provides consistent UI components
+- **Internationalization**: `i18n.js` provides Korean/English language support
 - **Email Templates**: `email-config.py` contains HTML email designs
 
 ### Testing
@@ -183,6 +185,13 @@ uv add --group testing pytest pytest-cov
 - **Theme Support**: Light/dark mode with CSS custom properties
 - **Animation Library**: Micro-interactions and transitions
 - **Accessibility**: ARIA compliance, keyboard navigation
+
+### 5. Internationalization (i18n)
+- **Multilingual Support**: Korean and English language switching
+- **Browser Detection**: Automatic language detection using navigator.language
+- **Persistent Storage**: Language preference saved in localStorage
+- **Dynamic Translation**: Real-time UI translation with data-i18n attributes
+- **Fallback System**: English fallback if Korean translation missing
 
 ## Environment Variables
 
@@ -289,6 +298,7 @@ This project has evolved significantly:
 2. **v0.2**: Streamlit web interface  
 3. **v0.3**: HTML/JavaScript web app
 4. **v0.4**: Multi-LLM support + Template engine
-5. **v0.5**: Design system + Email marketing (Current)
+5. **v0.5**: Design system + Email marketing
+6. **v0.6**: Internationalization (Korean/English) (Current)
 
 The codebase now represents a complete, production-ready AI-powered presentation platform with enterprise-grade features.
