@@ -7,6 +7,7 @@
     
     <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="ai-providers.js"></script>
     
     <!-- Custom Styles -->
     <style>
@@ -306,26 +307,76 @@
                     </h2>
                     
                     <div class="space-y-6">
+                        <!-- AI Provider Selection -->
+                        <div id="aiProviderSection" class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-semibold text-gray-700">
+                                    🤖 AI Provider Selection
+                                </label>
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Pro Feature</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-3 mb-3">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="claude" checked class="text-purple-600">
+                                    <span class="text-sm">Claude 3.5</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="openai" class="text-purple-600">
+                                    <span class="text-sm">GPT-4</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="gemini" class="text-purple-600">
+                                    <span class="text-sm">Gemini Pro</span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="enableComparison" class="text-purple-600">
+                                <label for="enableComparison" class="text-sm text-gray-700">
+                                    🏆 Enable AI Quality Comparison (uses multiple providers)
+                                </label>
+                            </div>
+                        </div>
+
                         <!-- API Key Input (Initially Hidden) -->
                         <div id="apiKeySection" class="hidden bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                             <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                🔑 Claude API 키를 입력하세요
+                                🔑 <span id="providerName">Claude</span> API Key Required
                             </label>
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 mb-2">
                                 <input 
                                     type="password" 
                                     id="apiKeyInput" 
-                                    placeholder="sk-ant-api03-..." 
+                                    placeholder="Enter your API key..." 
                                     class="flex-1 p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors"
                                 />
                                 <button id="saveApiKey" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg font-semibold">
-                                    저장
+                                    Save
                                 </button>
                             </div>
-                            <p class="text-xs text-gray-600 mt-2">
-                                API 키는 브라우저에만 저장되며 외부로 전송되지 않습니다. 
-                                <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">여기서 발급받으세요</a>
-                            </p>
+                            
+                            <!-- Multiple API Key Inputs -->
+                            <div id="multipleApiKeys" class="hidden space-y-2">
+                                <div class="flex gap-2">
+                                    <input type="password" id="openaiKeyInput" placeholder="OpenAI API Key" class="flex-1 p-2 border rounded">
+                                    <button id="saveOpenAIKey" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Save</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="password" id="geminiKeyInput" placeholder="Gemini API Key" class="flex-1 p-2 border rounded">
+                                    <button id="saveGeminiKey" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Save</button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center mt-2">
+                                <p class="text-xs text-gray-600">
+                                    API keys stored securely in browser only. 
+                                    <span id="apiKeyLinks">
+                                        <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Get Claude API</a>
+                                    </span>
+                                </p>
+                                <button id="showMultipleKeys" class="text-xs text-blue-600 underline">Configure All Providers</button>
+                            </div>
                         </div>
                         
                         <!-- Main Input -->

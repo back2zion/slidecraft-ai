@@ -5,6 +5,11 @@
 let currentSlides = [];
 let currentSlideIndex = 0;
 let CLAUDE_API_KEY = localStorage.getItem('claude_api_key') || '';
+let OPENAI_API_KEY = localStorage.getItem('openai_api_key') || '';
+let GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
+
+// Initialize AI Provider Manager
+let aiManager = null;
 
 // Color Schemes for Different Topics
 const colorSchemes = {
@@ -134,8 +139,8 @@ async function generatePresentation() {
         위 정보를 종합하여 완벽한 프레젠테이션을 만들어주세요.
         `;
         
-        // Generate slides with Claude API
-        const slides = await generateSlidesWithClaude(enhancedPrompt, slideCount, analysis);
+        // Generate slides with selected AI provider
+        const slides = await generateSlidesWithAI(enhancedPrompt, slideCount, analysis);
         
         await updateLoadingMessage('🎯 최종 검토 및 완성 중...', 300);
         
@@ -169,7 +174,73 @@ async function generatePresentation() {
     }
 }
 
-// Generate Slides with Claude API
+// Generate Slides with AI (Multi-provider support)
+async function generateSlidesWithAI(topic, slideCount, analysis) {
+    if (!aiManager) {
+        initializeAIProviders();
+    }
+    
+    const selectedProvider = getSelectedProvider();
+    const enableComparison = document.getElementById('enableComparison').checked;
+    
+    try {
+        let result;
+        
+        if (enableComparison) {
+            // Use multiple providers and select best result
+            const availableProviders = [];
+            if (CLAUDE_API_KEY) availableProviders.push('claude');
+            if (OPENAI_API_KEY) availableProviders.push('openai');
+            if (GEMINI_API_KEY) availableProviders.push('gemini');
+            
+            const prompt = aiManager.getProvider(selectedProvider).formatPrompt(topic, slideCount, analysis);
+            result = await aiManager.generateBestContent(prompt, { providers: availableProviders });
+            
+            // Show quality comparison info
+            console.log(`🏆 Best result from: ${result.provider} (Quality Score: ${result.qualityScore.toFixed(2)})`);
+            
+        } else {
+            // Use single selected provider
+            const provider = aiManager.getProvider(selectedProvider);
+            if (!provider) {
+                throw new Error(`Provider ${selectedProvider} not available. Please check API key.`);
+            }
+            
+            const prompt = provider.formatPrompt(topic, slideCount, analysis);
+            result = await aiManager.generateWithProvider(selectedProvider, prompt);
+        }
+        
+        if (result.success && result.slides) {
+            // Add metadata to slides
+            result.slides.forEach((slide, index) => {
+                slide.metadata = {
+                    provider: result.provider,
+                    qualityScore: result.qualityScore || 0,
+                    generatedAt: new Date().toISOString(),
+                    index: index
+                };
+            });
+            
+            return result.slides;
+        } else {
+            throw new Error(result.error || 'Failed to generate content');
+        }
+        
+    } catch (error) {
+        console.error('AI Generation Error:', error);
+        
+        // Fallback to original Claude function if available
+        if (CLAUDE_API_KEY && selectedProvider === 'claude') {
+            console.log('Falling back to original Claude implementation...');
+            return await generateSlidesWithClaude(topic, slideCount, analysis);
+        }
+        
+        // Final fallback to dummy slides
+        return generateFallbackSlides(topic, slideCount);
+    }
+}
+
+// Keep original Claude function as fallback
 async function generateSlidesWithClaude(topic, slideCount, analysis) {
     const prompt = `
     당신은 전문 프레젠테이션 디자이너입니다. 다음 정보로 완벽한 프레젠테이션을 만들어주세요:
@@ -367,6 +438,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('forceDownloadPPT').addEventListener('click', forceDownloadPPT);
     document.getElementById('downloadJSON').addEventListener('click', downloadJSON);
     document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
+    document.getElementById('saveOpenAIKey').addEventListener('click', saveOpenAIKey);
+    document.getElementById('saveGeminiKey').addEventListener('click', saveGeminiKey);
+    
+    // AI Provider selection event listeners
+    document.getElementsByName('aiProvider').forEach(radio => {
+        radio.addEventListener('change', function() {
+            checkApiKey();
+        });
+    });
+    
+    document.getElementById('enableComparison').addEventListener('change', function() {
+        checkApiKey();
+    });
+    
+    document.getElementById('showMultipleKeys').addEventListener('click', function() {
+        const multipleKeys = document.getElementById('multipleApiKeys');
+        multipleKeys.classList.toggle('hidden');
+    });
 });
 
 // Generate and Download PPT using PptxGenJS
@@ -815,30 +904,161 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// API Key Management
-function checkApiKey() {
-    if (!CLAUDE_API_KEY) {
-        document.getElementById('apiKeySection').classList.remove('hidden');
-        return false;
+// AI Provider Management
+function initializeAIProviders() {
+    aiManager = new AIProviderManager();
+    
+    // Register providers
+    if (CLAUDE_API_KEY) {
+        aiManager.registerProvider('claude', new ClaudeProvider(CLAUDE_API_KEY));
     }
+    if (OPENAI_API_KEY) {
+        aiManager.registerProvider('openai', new OpenAIProvider(OPENAI_API_KEY));
+    }
+    if (GEMINI_API_KEY) {
+        aiManager.registerProvider('gemini', new GeminiProvider(GEMINI_API_KEY));
+    }
+}
+
+function getSelectedProvider() {
+    const radios = document.getElementsByName('aiProvider');
+    for (const radio of radios) {
+        if (radio.checked) {
+            return radio.value;
+        }
+    }
+    return 'claude';
+}
+
+function checkApiKey() {
+    const selectedProvider = getSelectedProvider();
+    const enableComparison = document.getElementById('enableComparison').checked;
+    
+    if (enableComparison) {
+        // Check if at least 2 providers have API keys
+        const availableProviders = [];
+        if (CLAUDE_API_KEY) availableProviders.push('claude');
+        if (OPENAI_API_KEY) availableProviders.push('openai');
+        if (GEMINI_API_KEY) availableProviders.push('gemini');
+        
+        if (availableProviders.length < 2) {
+            document.getElementById('apiKeySection').classList.remove('hidden');
+            document.getElementById('multipleApiKeys').classList.remove('hidden');
+            updateApiKeyUI('multiple');
+            return false;
+        }
+    } else {
+        // Check selected provider
+        const hasKey = {
+            'claude': CLAUDE_API_KEY,
+            'openai': OPENAI_API_KEY,
+            'gemini': GEMINI_API_KEY
+        }[selectedProvider];
+        
+        if (!hasKey) {
+            document.getElementById('apiKeySection').classList.remove('hidden');
+            updateApiKeyUI(selectedProvider);
+            return false;
+        }
+    }
+    
     return true;
 }
 
-function saveApiKey() {
-    const apiKey = document.getElementById('apiKeyInput').value.trim();
-    if (apiKey) {
-        CLAUDE_API_KEY = apiKey;
-        localStorage.setItem('claude_api_key', apiKey);
-        document.getElementById('apiKeySection').classList.add('hidden');
-        alert('✅ API 키가 저장되었습니다!');
+function updateApiKeyUI(provider) {
+    const providerName = document.getElementById('providerName');
+    const apiKeyLinks = document.getElementById('apiKeyLinks');
+    
+    const providerInfo = {
+        'claude': {
+            name: 'Claude',
+            url: 'https://console.anthropic.com/',
+            placeholder: 'sk-ant-api03-...'
+        },
+        'openai': {
+            name: 'OpenAI',
+            url: 'https://platform.openai.com/api-keys',
+            placeholder: 'sk-...'
+        },
+        'gemini': {
+            name: 'Gemini',
+            url: 'https://aistudio.google.com/app/apikey',
+            placeholder: 'AI...'
+        },
+        'multiple': {
+            name: 'Multiple Providers',
+            url: '',
+            placeholder: 'Configure all providers below'
+        }
+    };
+    
+    const info = providerInfo[provider];
+    providerName.textContent = info.name;
+    document.getElementById('apiKeyInput').placeholder = info.placeholder;
+    
+    if (provider === 'multiple') {
+        apiKeyLinks.innerHTML = `
+            <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Claude</a> | 
+            <a href="https://platform.openai.com/api-keys" target="_blank" class="text-green-600 underline">OpenAI</a> | 
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 underline">Gemini</a>
+        `;
     } else {
-        alert('⚠️ 유효한 API 키를 입력해주세요.');
+        apiKeyLinks.innerHTML = `<a href="${info.url}" target="_blank" class="text-purple-600 underline">Get ${info.name} API</a>`;
+    }
+}
+
+function saveApiKey() {
+    const selectedProvider = getSelectedProvider();
+    const apiKey = document.getElementById('apiKeyInput').value.trim();
+    
+    if (apiKey) {
+        if (selectedProvider === 'claude') {
+            CLAUDE_API_KEY = apiKey;
+            localStorage.setItem('claude_api_key', apiKey);
+        } else if (selectedProvider === 'openai') {
+            OPENAI_API_KEY = apiKey;
+            localStorage.setItem('openai_api_key', apiKey);
+        } else if (selectedProvider === 'gemini') {
+            GEMINI_API_KEY = apiKey;
+            localStorage.setItem('gemini_api_key', apiKey);
+        }
+        
+        // Reinitialize providers
+        initializeAIProviders();
+        
+        document.getElementById('apiKeySection').classList.add('hidden');
+        alert(`✅ ${selectedProvider.toUpperCase()} API key saved!`);
+    } else {
+        alert('⚠️ Please enter a valid API key.');
+    }
+}
+
+function saveOpenAIKey() {
+    const apiKey = document.getElementById('openaiKeyInput').value.trim();
+    if (apiKey) {
+        OPENAI_API_KEY = apiKey;
+        localStorage.setItem('openai_api_key', apiKey);
+        initializeAIProviders();
+        alert('✅ OpenAI API key saved!');
+    }
+}
+
+function saveGeminiKey() {
+    const apiKey = document.getElementById('geminiKeyInput').value.trim();
+    if (apiKey) {
+        GEMINI_API_KEY = apiKey;
+        localStorage.setItem('gemini_api_key', apiKey);
+        initializeAIProviders();
+        alert('✅ Gemini API key saved!');
     }
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 AI PPT Generator 초기화 완료');
+    console.log('🚀 SlideCraft AI - Multi-LLM Version Initialized');
+    
+    // Initialize AI providers
+    initializeAIProviders();
     
     // Check API key on load
     checkApiKey();

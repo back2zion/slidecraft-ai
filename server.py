@@ -98,28 +98,28 @@ def run_server(port=8000):
     """Run the proxy server"""
     try:
         with socketserver.TCPServer(("", port), ProxyHTTPRequestHandler) as httpd:
-            print(f"🚀 AI PPT Generator 서버가 실행되었습니다!")
-            print(f"📍 브라우저에서 http://localhost:{port} 접속하세요")
-            print(f"🔧 프록시 API: http://localhost:{port}/api/claude")
-            print(f"⚡ 서버 중지: Ctrl+C")
+            print(f"🚀 SlideCraft AI server is running!")
+            print(f"📍 Open http://localhost:{port} in your browser")
+            print(f"🔧 Proxy API: http://localhost:{port}/api/claude")
+            print(f"⚡ Stop server: Ctrl+C")
             print("-" * 50)
             httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n🛑 서버가 중지되었습니다.")
+        print("\n🛑 Server stopped.")
     except OSError as e:
         if e.errno == 10048:  # Port already in use on Windows
-            print(f"❌ 포트 {port}가 이미 사용 중입니다. 다른 포트를 시도해보세요.")
-            print(f"💡 포트 {port + 1}로 다시 시도합니다...")
+            print(f"❌ Port {port} is already in use. Trying another port...")
+            print(f"💡 Retrying with port {port + 1}...")
             run_server(port + 1)
         else:
-            print(f"❌ 서버 시작 오류: {e}")
+            print(f"❌ Server start error: {e}")
 
 if __name__ == "__main__":
     # Check for API key
     api_key = os.getenv('CLAUDE_API_KEY')
     if not api_key:
-        print("⚠️  경고: CLAUDE_API_KEY 환경변수가 설정되지 않았습니다.")
-        print("💡 API 키는 웹 인터페이스에서 직접 입력할 수 있습니다.")
+        print("⚠️  Warning: CLAUDE_API_KEY environment variable not set.")
+        print("💡 You can enter API key directly in the web interface.")
         print()
     
     run_server()
