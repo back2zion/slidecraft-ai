@@ -2,7 +2,7 @@
 
 > **Transform ideas into stunning presentations with AI - One-click PowerPoint generation using Claude AI**
 
-Create professional PowerPoint presentations automatically from natural language descriptions using Claude AI.
+A complete SaaS platform for creating professional PowerPoint presentations using AI. Features a full website with landing page, product information, and a powerful presentation generator supporting multiple AI models.
 
 ## 🎬 Demo Video
 [![SlideCraft AI Demo](https://img.youtube.com/vi/pBW2L7jmffw/0.jpg)](https://youtu.be/pBW2L7jmffw?si=BnozBR-e7pAHQjBK)
@@ -42,7 +42,8 @@ Create professional PowerPoint presentations automatically from natural language
 ## 🚀 Getting Started
 
 ### Online Usage (Recommended)
-Use directly on GitHub Pages: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)**
+**🌐 Website**: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)** - Complete website with features, demo, and pricing
+**🚀 Direct App**: **[Launch App 🔗](https://back2zion.github.io/slidecraft-ai/app.html)** - Jump straight to the presentation generator
 
 ### Local Development
 
@@ -72,10 +73,17 @@ python -m http.server 8000
 
 ## 📝 How to Use
 
-1. **API Setup**: Get your Claude API key from [console.anthropic.com](https://console.anthropic.com/) and enter it
+### 🌐 Via Website (Easiest)
+1. **Visit**: Go to [SlideCraft AI website](https://back2zion.github.io/slidecraft-ai/)
+2. **Explore**: Check out features, watch demo, view pricing
+3. **Launch**: Click "Launch App" to start creating
+4. **Create**: Enter your AI API key and generate presentations
+
+### 🖥️ Via Direct App Link
+1. **API Setup**: Get your AI API key (Claude, OpenAI, or Gemini) and enter it
 2. **Input Topic**: Naturally describe the presentation you want to create
-3. **Select Options**: Choose slide count, target audience, and presentation duration
-4. **AI Generation**: Click "Generate PPT with AI Magic!"
+3. **Select Options**: Choose slide count, templates, and customization
+4. **AI Generation**: Click "Generate Professional Presentation!"
 5. **Preview**: View slides in real-time with navigation
 6. **Download**: Get your completed PPT file
 
