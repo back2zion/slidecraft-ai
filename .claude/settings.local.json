@@ -20,7 +20,9 @@
       "Bash(uv run:*)",
       "Bash(git log:*)",
       "Bash(mkdir:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(sed:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": [],
