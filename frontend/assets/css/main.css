@@ -125,28 +125,6 @@ body {
   z-index: 2;
 }
 
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #ffffff !important;
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.1;
-  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
-  position: relative;
-  z-index: 100;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: #ffffff !important;
-  max-width: 800px;
-  margin: 0 auto var(--spacing-xl);
-  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
-  position: relative;
-  z-index: 100;
-  font-weight: 600 !important;
-  line-height: 1.4;
-}
 
 /* ==========================================================================
    Navigation
@@ -220,21 +198,6 @@ body {
    Cards and Components
    ========================================================================== */
 
-.feature-card {
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-  height: 100%;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-  border-color: var(--primary-300);
-}
 
 .feature-card h3 {
   font-size: 1.5rem;
@@ -456,12 +419,403 @@ body {
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out;
+
+/* ==========================================================================
+   Landing Page Specific Styles (moved from inline CSS)
+   ========================================================================== */
+
+/* Hero Section Overrides */
+.hero-gradient {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out;
+.hero-content {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff !important;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
+  position: relative;
+  z-index: 100;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #ffffff !important;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
+  position: relative;
+  z-index: 100;
+  font-weight: 600 !important;
+  line-height: 1.4;
+}
+
+/* Feature Cards Enhanced */
+.feature-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #334155;
+  padding: 2rem;
+}
+
+/* Stats Counter */
+.stats-counter {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-600);
+}
+
+/* Waitlist Form */
+.waitlist-form {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+}
+
+/* Floating Shapes */
+.floating-shapes {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-shapes .shape {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-shapes .shape:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.floating-shapes .shape:nth-child(2) {
+  top: 20%;
+  right: 10%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 2s;
+}
+
+.floating-shapes .shape:nth-child(3) {
+  bottom: 30%;
+  left: 20%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Section Spacing */
+.section-spacing {
+  padding: 100px 0;
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e5e7eb;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Notification Banner */
+.notification-banner {
+  background: #1e40af;
+  color: white;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* CTA Button Enhanced */
+.cta-button {
+  background: #3b82f6;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-block;
+  padding: 1rem 2rem;
+  color: white;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Social Proof */
+.social-proof-logos {
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.social-proof-logos:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Success Animation */
+@keyframes checkmark {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-checkmark {
+  animation: checkmark 0.6s ease-in-out;
+}
+
+/* Fade In Animation */
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navigation Enhancements */
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--gray-700);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-nav-menu {
+  display: none;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 0;
+}
+
+/* ==========================================================================
+   Enhanced Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Container adjustments */
+  .ds-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Navigation mobile */
+  .nav-desktop {
+    display: none !important;
+  }
+  
+  .nav-mobile-toggle {
+    display: block !important;
+  }
+  
+  /* Hero section mobile */
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 1rem !important;
+    padding: 0 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+    padding: 0 1rem;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Stats counter mobile */
+  .stats-counter {
+    font-size: 1.8rem !important;
+  }
+  
+  /* Feature cards mobile */
+  .feature-card {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem !important;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  .feature-card p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Waitlist form mobile */
+  .waitlist-form {
+    padding: 1.5rem !important;
+    margin: 0 1rem;
+  }
+  
+  .waitlist-form h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .waitlist-form p {
+    font-size: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Button mobile */
+  .cta-button {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 1rem !important;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* Testimonial mobile */
+  .testimonial-card {
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem;
+  }
+  
+  .testimonial-card p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Hide floating shapes on mobile */
+  .floating-shapes {
+    display: none;
+  }
+  
+  /* Sections padding */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Grid mobile */
+  .grid-cols-2, .grid-cols-3, .ds-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small mobile devices */
+  .hero-title {
+    font-size: 1.8rem !important;
+    padding: 0 0.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem !important;
+    padding: 0 0.5rem;
+  }
+  
+  .notification-banner {
+    font-size: 0.85rem !important;
+    padding: 0.5rem !important;
+  }
+  
+  .ds-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .waitlist-form {
+    margin: 0 0.5rem;
+    padding: 1rem !important;
+  }
+  
+  .feature-card {
+    padding: 1rem !important;
+  }
 }
 
 /* ==========================================================================
