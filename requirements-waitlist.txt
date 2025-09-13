@@ -1,0 +1,11 @@
+# SlideCraft AI Waitlist Server Requirements
+# Install with: pip install -r requirements-waitlist.txt
+
+Flask==2.3.3
+Flask-CORS==4.0.0
+Werkzeug==2.3.7
+
+# Optional: For enhanced functionality
+# flask-limiter==3.5.0  # Rate limiting
+# flask-mail==0.9.1     # Email notifications
+# python-dotenv==1.0.0  # Environment variables

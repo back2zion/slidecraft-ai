@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideCraft AI - Waitlist Admin</title>
+    <script src="design-system.js"></script>
+    <style>
+        body {
+            font-family: var(--typography-fontFamily-sans);
+            background: var(--color-background-secondary);
+            margin: 0;
+            padding: 2rem;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .admin-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--boxShadow-lg);
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--boxShadow-md);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-primary-600);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .signups-table {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: var(--boxShadow-lg);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: var(--color-primary-600);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-content {
+            padding: 2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-secondary-200);
+        }
+        
+        th {
+            background: var(--color-background-tertiary);
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        tr:hover {
+            background: var(--color-background-tertiary);
+        }
+        
+        .user-type-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .user-type-business { background: var(--color-primary-100); color: var(--color-primary-700); }
+        .user-type-educator { background: var(--color-semantic-success-100); color: var(--color-semantic-success-700); }
+        .user-type-student { background: var(--color-semantic-info-100); color: var(--color-semantic-info-700); }
+        .user-type-consultant { background: var(--color-semantic-warning-100); color: var(--color-semantic-warning-700); }
+        .user-type-entrepreneur { background: var(--color-secondary-100); color: var(--color-secondary-700); }
+        .user-type-other { background: var(--color-secondary-100); color: var(--color-secondary-600); }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .error {
+            background: var(--color-semantic-error-50);
+            border: 1px solid var(--color-semantic-error-200);
+            color: var(--color-semantic-error-700);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .auth-form {
+            max-width: 400px;
+            margin: 4rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--boxShadow-lg);
+        }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Authentication Form -->
+        <div id="authForm" class="auth-form">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--color-text-primary);">
+                🔐 Admin Access
+            </h2>
+            <form id="loginForm">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Admin Token:</label>
+                    <input 
+                        type="password" 
+                        id="adminToken" 
+                        placeholder="Enter admin token"
+                        class="ds-input ds-input--lg"
+                        style="width: 100%;"
+                        required
+                    />
+                </div>
+                <button type="submit" class="ds-button ds-button--primary ds-button--lg" style="width: 100%;">
+                    Access Dashboard
+                </button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-secondary);">
+                Default token: admin_token_123
+            </p>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard" class="hidden">
+            <!-- Header -->
+            <div class="admin-header">
+                <h1 style="margin: 0; color: var(--color-text-primary);">
+                    🚀 SlideCraft AI - Waitlist Dashboard
+                </h1>
+                <p style="margin: 0.5rem 0 0 0; color: var(--color-text-secondary);">
+                    Manage and monitor your waitlist signups
+                </p>
+                <div style="margin-top: 1rem;">
+                    <button id="refreshBtn" class="ds-button ds-button--secondary ds-button--sm">
+                        🔄 Refresh Data
+                    </button>
+                    <button id="exportBtn" class="ds-button ds-button--primary ds-button--sm" style="margin-left: 0.5rem;">
+                        📥 Export CSV
+                    </button>
+                    <button id="logoutBtn" class="ds-button ds-button--ghost ds-button--sm" style="margin-left: 0.5rem;">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSignups">-</div>
+                    <div class="stat-label">Total Signups</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todaySignups">-</div>
+                    <div class="stat-label">Today's Signups</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="weekSignups">-</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="monthSignups">-</div>
+                    <div class="stat-label">This Month</div>
+                </div>
+            </div>
+
+            <!-- Signups Table -->
+            <div class="signups-table">
+                <div class="table-header">
+                    <h3 style="margin: 0;">📋 Recent Signups</h3>
+                    <span id="lastUpdated" style="font-size: 0.875rem; opacity: 0.9;">-</span>
+                </div>
+                <div class="table-content">
+                    <div id="loadingMessage" class="loading">
+                        <div class="ds-loader ds-loader--lg">
+                            <div class="ds-spinner"></div>
+                            <div class="ds-loader-text">Loading signups...</div>
+                        </div>
+                    </div>
+                    <div id="errorMessage" class="error hidden">
+                        Failed to load signup data. Please check your connection and try again.
+                    </div>
+                    <div id="tableContainer" class="hidden">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>User Type</th>
+                                    <th>Source</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="signupsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AdminDashboard {
+            constructor() {
+                this.apiBaseUrl = 'http://localhost:5001';
+                this.adminToken = null;
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.checkExistingAuth();
+            }
+            
+            bindEvents() {
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+                
+                document.getElementById('refreshBtn').addEventListener('click', () => {
+                    this.loadData();
+                });
+                
+                document.getElementById('exportBtn').addEventListener('click', () => {
+                    this.exportData();
+                });
+                
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    this.logout();
+                });
+            }
+            
+            checkExistingAuth() {
+                const storedToken = localStorage.getItem('slidecraft_admin_token');
+                if (storedToken) {
+                    this.adminToken = storedToken;
+                    this.showDashboard();
+                    this.loadData();
+                }
+            }
+            
+            async handleLogin() {
+                const token = document.getElementById('adminToken').value.trim();
+                
+                if (!token) {
+                    this.showNotification('Please enter an admin token', 'error');
+                    return;
+                }
+                
+                // Test the token by making an API call
+                try {
+                    const response = await fetch(`${this.apiBaseUrl}/admin/signups`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        this.adminToken = token;
+                        localStorage.setItem('slidecraft_admin_token', token);
+                        this.showDashboard();
+                        this.loadData();
+                    } else if (response.status === 401) {
+                        this.showNotification('Invalid admin token', 'error');
+                    } else {
+                        this.showNotification('Server error. Please try again.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    this.showNotification('Cannot connect to server', 'error');
+                }
+            }
+            
+            showDashboard() {
+                document.getElementById('authForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+            }
+            
+            logout() {
+                localStorage.removeItem('slidecraft_admin_token');
+                this.adminToken = null;
+                document.getElementById('dashboard').classList.add('hidden');
+                document.getElementById('authForm').classList.remove('hidden');
+                document.getElementById('adminToken').value = '';
+            }
+            
+            async loadData() {
+                try {
+                    // Show loading state
+                    document.getElementById('loadingMessage').classList.remove('hidden');
+                    document.getElementById('errorMessage').classList.add('hidden');
+                    document.getElementById('tableContainer').classList.add('hidden');
+                    
+                    // Load signups
+                    const response = await fetch(`${this.apiBaseUrl}/admin/signups`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.adminToken}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.displaySignups(data.signups);
+                        this.updateStats(data.signups);
+                        this.updateLastUpdated();
+                    } else {
+                        throw new Error(data.error || 'Unknown error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Data loading error:', error);
+                    document.getElementById('loadingMessage').classList.add('hidden');
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                }
+            }
+            
+            displaySignups(signups) {
+                const tbody = document.getElementById('signupsTableBody');
+                tbody.innerHTML = '';
+                
+                if (signups.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 2rem; color: var(--color-text-secondary);">
+                                No signups yet. Share your landing page to get started! 🚀
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    signups.forEach(signup => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${signup.email}</td>
+                            <td>${signup.name || '-'}</td>
+                            <td>${this.formatUserType(signup.user_type)}</td>
+                            <td>${signup.source || 'landing_page'}</td>
+                            <td>${this.formatDate(signup.created_at)}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+                
+                // Show table
+                document.getElementById('loadingMessage').classList.add('hidden');
+                document.getElementById('tableContainer').classList.remove('hidden');
+            }
+            
+            formatUserType(userType) {
+                if (!userType) return '-';
+                
+                const formatted = userType.charAt(0).toUpperCase() + userType.slice(1);
+                return `<span class="user-type-badge user-type-${userType}">${formatted}</span>`;
+            }
+            
+            formatDate(dateString) {
+                if (!dateString) return '-';
+                
+                const date = new Date(dateString);
+                return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            }
+            
+            updateStats(signups) {
+                const total = signups.length;
+                const today = this.getSignupsForPeriod(signups, 1);
+                const week = this.getSignupsForPeriod(signups, 7);
+                const month = this.getSignupsForPeriod(signups, 30);
+                
+                document.getElementById('totalSignups').textContent = total;
+                document.getElementById('todaySignups').textContent = today;
+                document.getElementById('weekSignups').textContent = week;
+                document.getElementById('monthSignups').textContent = month;
+            }
+            
+            getSignupsForPeriod(signups, days) {
+                const cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - days);
+                
+                return signups.filter(signup => {
+                    const signupDate = new Date(signup.created_at);
+                    return signupDate >= cutoff;
+                }).length;
+            }
+            
+            updateLastUpdated() {
+                const now = new Date();
+                document.getElementById('lastUpdated').textContent = 
+                    `Updated ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            }
+            
+            async exportData() {
+                try {
+                    const response = await fetch(`${this.apiBaseUrl}/admin/export`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.adminToken}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `slidecraft_waitlist_${new Date().toISOString().split('T')[0]}.csv`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                        
+                        this.showNotification('CSV exported successfully!', 'success');
+                    } else {
+                        throw new Error('Export failed');
+                    }
+                } catch (error) {
+                    console.error('Export error:', error);
+                    this.showNotification('Export failed. Please try again.', 'error');
+                }
+            }
+            
+            showNotification(message, type = 'info') {
+                if (window.SlideCraftDS) {
+                    window.SlideCraftDS.showToast({
+                        type: type,
+                        title: type === 'error' ? 'Error' : type === 'success' ? 'Success' : 'Info',
+                        message: message,
+                        duration: 5000
+                    });
+                } else {
+                    alert(message);
+                }
+            }
+        }
+        
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminDashboard();
+        });
+    </script>
+</body>
+</html>
