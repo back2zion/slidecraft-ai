@@ -454,7 +454,7 @@ h1.hero-title,
   line-height: 1.1 !important;
   text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
   position: relative !important;
-  z-index: 100 !important;
+  z-index: 1 !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -609,6 +609,7 @@ p.hero-subtitle,
   text-decoration: none;
   border: none;
   cursor: pointer;
+  z-index: 10;
 }
 
 .cta-button::before {
@@ -630,6 +631,27 @@ p.hero-subtitle,
   background: #2563eb;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Hero CTA Container */
+.hero-cta-container {
+  position: relative;
+  z-index: 20;
+  margin-bottom: 4rem;
+}
+
+/* Hero CTA Buttons */
+#heroCtaBtn,
+.hero-cta-container button {
+  position: relative;
+  z-index: 15;
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 /* Social Proof */
