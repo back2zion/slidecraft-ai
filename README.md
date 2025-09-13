@@ -4,6 +4,10 @@
 
 Create professional PowerPoint presentations automatically from natural language descriptions using Claude AI.
 
+## 🎬 Demo Video
+[![SlideCraft AI Demo](https://img.youtube.com/vi/pBW2L7jmffw/0.jpg)](https://youtu.be/pBW2L7jmffw?si=BnozBR-e7pAHQjBK)
+> Click to watch the demo video on YouTube
+
 ## ✨ Key Features
 
 ### 🎯 One-Click Creation

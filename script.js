@@ -11,30 +11,141 @@ let GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
 // Initialize AI Provider Manager
 let aiManager = null;
 
-// Color Schemes for Different Topics
+// Enhanced Color Schemes for Different Topics
 const colorSchemes = {
-    'marketing': { primary: '#ff6b6b', secondary: '#ffa726', bg: 'linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%)' },
-    'tech': { primary: '#667eea', secondary: '#764ba2', bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-    'education': { primary: '#11998e', secondary: '#38ef7d', bg: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' },
-    'business': { primary: '#0056b3', secondary: '#667eea', bg: 'linear-gradient(135deg, #0056b3 0%, #667eea 100%)' },
+    'marketing': { primary: '#dc2626', secondary: '#ea580c', bg: 'linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%)' },
+    'tech': { primary: '#1e40af', secondary: '#3b82f6', bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+    'education': { primary: '#059669', secondary: '#10b981', bg: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' },
+    'business': { primary: '#1e40af', secondary: '#3b82f6', bg: 'linear-gradient(135deg, #0056b3 0%, #667eea 100%)' },
+    'creative': { primary: '#8b5cf6', secondary: '#ec4899', bg: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)' },
+    'executive': { primary: '#374151', secondary: '#6b7280', bg: 'linear-gradient(135deg, #374151 0%, #6b7280 100%)' },
     'default': { primary: '#667eea', secondary: '#764ba2', bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
 };
 
-// Topic Analysis Function
+// Enhanced Topic Analysis Function (now uses Template Engine)
 function analyzeTopicAndSuggestTemplate(topic) {
     const topicLower = topic.toLowerCase();
     
-    if (['마케팅', '판매', '브랜딩', '광고', '홍보'].some(word => topicLower.includes(word))) {
-        return { template: 'modern', color: 'marketing', type: '마케팅' };
-    } else if (['기술', '개발', 'ai', '인공지능', 'it', '프로그래밍'].some(word => topicLower.includes(word))) {
-        return { template: 'dark', color: 'tech', type: '기술' };
-    } else if (['교육', '학습', '강의', '연수', '교수법'].some(word => topicLower.includes(word))) {
-        return { template: 'minimal', color: 'education', type: '교육' };
-    } else if (['회사', '기업', '비즈니스', '전략', '경영'].some(word => topicLower.includes(word))) {
-        return { template: 'corporate', color: 'business', type: '비즈니스' };
-    } else {
-        return { template: 'modern', color: 'default', type: '일반' };
+    // Use enhanced template engine if available
+    if (typeof analyzeTopicForEnhancedTemplate === 'function') {
+        try {
+            const enhancedAnalysis = analyzeTopicForEnhancedTemplate(topic);
+            return {
+                template: enhancedAnalysis.template,
+                color: enhancedAnalysis.recommendations.colorPalette,
+                type: mapTemplateToType(enhancedAnalysis.template),
+                enhanced: true,
+                recommendations: enhancedAnalysis.recommendations
+            };
+        } catch (error) {
+            console.warn('Enhanced template analysis failed, falling back to basic analysis:', error);
+        }
     }
+    
+    // Fallback to basic analysis
+    if (['마케팅', '판매', '브랜딩', '광고', '홍보'].some(word => topicLower.includes(word))) {
+        return { template: 'marketing-vibrant', color: 'marketing', type: '마케팅' };
+    } else if (['기술', '개발', 'ai', '인공지능', 'it', '프로그래밍'].some(word => topicLower.includes(word))) {
+        return { template: 'tech-sleek', color: 'tech', type: '기술' };
+    } else if (['교육', '학습', '강의', '연수', '교수법'].some(word => topicLower.includes(word))) {
+        return { template: 'educational-friendly', color: 'education', type: '교육' };
+    } else if (['회사', '기업', '비즈니스', '전략', '경영'].some(word => topicLower.includes(word))) {
+        return { template: 'corporate-modern', color: 'business', type: '비즈니스' };
+    } else if (['발표', 'pitch', '투자', '제안'].some(word => topicLower.includes(word))) {
+        return { template: 'pitch-deck', color: 'executive', type: '발표' };
+    } else if (['창작', '디자인', '아트', '크리에이티브'].some(word => topicLower.includes(word))) {
+        return { template: 'creative-bold', color: 'creative', type: '창작' };
+    } else {
+        return { template: 'corporate-modern', color: 'default', type: '일반' };
+    }
+}
+
+// Map template names to user-friendly types
+function mapTemplateToType(templateName) {
+    const typeMap = {
+        'corporate-modern': '모던 비즈니스',
+        'corporate-minimal': '미니멀 비즈니스',
+        'executive-premium': '프리미엄 임원',
+        'creative-bold': '크리에이티브',
+        'marketing-vibrant': '마케팅',
+        'startup-dynamic': '스타트업',
+        'tech-sleek': '기술',
+        'academic-clean': '학술',
+        'educational-friendly': '교육',
+        'data-focus': '데이터',
+        'storytelling': '스토리텔링',
+        'pitch-deck': '피치덱'
+    };
+    
+    return typeMap[templateName] || '일반';
+}
+
+// Update template preview based on selection
+function updateTemplatePreview() {
+    const selectedTemplate = getSelectedTemplateType();
+    const topic = document.getElementById('topicInput').value;
+    
+    if (selectedTemplate !== 'auto' && topic.trim()) {
+        // Update AI analysis with selected template
+        const aiAnalysis = document.getElementById('aiAnalysis');
+        const analysisText = document.getElementById('analysisText');
+        
+        if (aiAnalysis && analysisText) {
+            aiAnalysis.classList.remove('hidden');
+            const templateType = mapTemplateToType(selectedTemplate);
+            analysisText.textContent = `${templateType} 템플릿이 수동으로 선택되었습니다. Enhanced Template Engine이 적용됩니다!`;
+            
+            // Update preview card color based on template
+            const previewCard = document.querySelector('.preview-card');
+            if (previewCard) {
+                const templateColorMap = {
+                    'corporate-modern': 'business',
+                    'creative-bold': 'creative',
+                    'tech-sleek': 'tech',
+                    'executive-premium': 'executive',
+                    'pitch-deck': 'executive',
+                    'marketing-vibrant': 'marketing'
+                };
+                
+                const colorScheme = colorSchemes[templateColorMap[selectedTemplate]] || colorSchemes['default'];
+                previewCard.style.background = colorScheme.bg;
+            }
+        }
+    }
+}
+
+// Get selected template type from UI
+function getSelectedTemplateType() {
+    const radios = document.getElementsByName('templateType');
+    for (const radio of radios) {
+        if (radio.checked) {
+            return radio.value;
+        }
+    }
+    return 'auto';
+}
+
+// Check if smart content fitting is enabled
+function isSmartFittingEnabled() {
+    const checkbox = document.getElementById('enableSmartFitting');
+    return checkbox ? checkbox.checked : true;
+}
+
+// Get enhanced template options
+function getEnhancedTemplateOptions() {
+    const topic = document.getElementById('topicInput').value;
+    const targetAudience = document.getElementById('targetAudience').value;
+    const presentationTime = document.getElementById('presentationTime').value;
+    const selectedTemplate = getSelectedTemplateType();
+    
+    return {
+        topic,
+        targetAudience,
+        presentationTime,
+        templateType: selectedTemplate,
+        smartFitting: isSmartFittingEnabled(),
+        slideCount: parseInt(document.getElementById('slideCount').value)
+    };
 }
 
 // Real-time Preview Update
@@ -178,6 +289,10 @@ async function generatePresentation() {
 async function generateSlidesWithAI(topic, slideCount, analysis) {
     if (!aiManager) {
         initializeAIProviders();
+    }
+    
+    if (!aiManager) {
+        throw new Error('AI Manager initialization failed');
     }
     
     const selectedProvider = getSelectedProvider();
@@ -458,7 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Generate and Download PPT using PptxGenJS
+// Generate and Download PPT using Enhanced Template Engine
 function generateAndDownloadPPT() {
     if (currentSlides.length === 0) {
         alert('⚠️ 먼저 PPT를 생성해주세요!');
@@ -466,11 +581,49 @@ function generateAndDownloadPPT() {
     }
     
     try {
+        // Check if enhanced template engine is available
+        const options = getEnhancedTemplateOptions();
+        
+        if (typeof generateEnhancedPPT === 'function' && options.smartFitting) {
+            console.log('🎨 Using Enhanced Template Engine...');
+            
+            // Use enhanced template engine
+            const enhancedPptx = generateEnhancedPPT(currentSlides, options);
+            
+            // Generate filename
+            const timestamp = new Date().toISOString().slice(0, 10);
+            const filename = `Enhanced_${currentSlides[0].title.replace(/[^\w\s-]/g, '').slice(0, 20)}_${timestamp}.pptx`;
+            
+            // Download with enhanced features
+            enhancedPptx.writeFile({ fileName: filename }).then(() => {
+                alert('🎉 Enhanced Template Engine으로 전문적인 디자인의 PPT 파일이 다운로드되었습니다!');
+            }).catch((downloadError) => {
+                console.error('Enhanced download failed, falling back to standard generation:', downloadError);
+                generateStandardPPT(); // Fallback
+            });
+            
+            return; // Exit early if enhanced generation succeeds
+        }
+        
+        // Fallback to standard generation
+        generateStandardPPT();
+        
+    } catch (error) {
+        console.error('PPT Generation Error:', error);
+        generateStandardPPT(); // Ultimate fallback
+    }
+}
+
+// Standard PPT Generation (fallback method)
+function generateStandardPPT() {
+    try {
+        console.log('📄 Using Standard PPT Generation...');
+        
         // Create new presentation
         const pptx = new PptxGenJS();
         
         // Set presentation properties
-        pptx.author = 'AI PPT Generator';
+        pptx.author = 'AI PPT Generator - Enhanced';
         pptx.company = 'Powered by Kwak Dooil';
         pptx.title = currentSlides[0].title;
         pptx.layout = 'LAYOUT_WIDE';
@@ -478,7 +631,7 @@ function generateAndDownloadPPT() {
         // Get current color scheme
         const topic = document.getElementById('topicInput').value;
         const analysis = analyzeTopicAndSuggestTemplate(topic);
-        const colorScheme = colorSchemes[analysis.color];
+        const colorScheme = colorSchemes[analysis.color] || colorSchemes['default'];
         
         // Add slides with professional design
         currentSlides.forEach((slideData, index) => {
@@ -1096,4 +1249,18 @@ document.addEventListener('DOMContentLoaded', function() {
             element.addEventListener('change', updatePreview);
         }
     });
+    
+    // Add template selection listeners
+    document.getElementsByName('templateType').forEach(radio => {
+        radio.addEventListener('change', function() {
+            updatePreview();
+            updateTemplatePreview();
+        });
+    });
+    
+    // Add smart fitting toggle listener
+    const smartFittingCheckbox = document.getElementById('enableSmartFitting');
+    if (smartFittingCheckbox) {
+        smartFittingCheckbox.addEventListener('change', updatePreview);
+    }
 });

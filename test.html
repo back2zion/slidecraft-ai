@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideCraft AI - Quick Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { color: red; }
+        .success { color: green; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; }
+        #log { background: #f5f5f5; padding: 10px; height: 200px; overflow-y: scroll; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>🧪 SlideCraft AI Multi-LLM Test</h1>
+    
+    <div class="test-section">
+        <h3>1. Script Loading Test</h3>
+        <div id="loadTest">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>2. AI Provider Initialization Test</h3>
+        <input type="password" id="testClaudeKey" placeholder="Claude API Key (sk-ant-api03-...)">
+        <button onclick="testProviderInit()">Test Provider Init</button>
+        <div id="providerTest">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>3. Quality Scorer Test</h3>
+        <button onclick="testQualityScorer()">Test Quality Scoring</button>
+        <div id="qualityTest">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>4. Full Integration Test</h3>
+        <textarea id="testTopic" rows="3" placeholder="Enter a presentation topic...">AI technology trends and business impact for executives</textarea>
+        <button onclick="testFullGeneration()">Test Full Generation</button>
+        <div id="integrationTest">Not tested yet</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📝 Test Log</h3>
+        <div id="log"></div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <script src="ai-providers.js"></script>
+    <script>
+        // Test logging
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${time}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[TEST] ${message}`);
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // Test 1: Script Loading
+        function testScriptLoading() {
+            const loadDiv = document.getElementById('loadTest');
+            try {
+                if (typeof AIProviderManager !== 'undefined') {
+                    loadDiv.innerHTML = '<span class="success">✅ AI Providers script loaded successfully</span>';
+                    log('✅ AIProviderManager is available');
+                    return true;
+                } else {
+                    loadDiv.innerHTML = '<span class="error">❌ AIProviderManager not found</span>';
+                    log('❌ AIProviderManager not available');
+                    return false;
+                }
+            } catch (error) {
+                loadDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                log(`❌ Script loading error: ${error.message}`);
+                return false;
+            }
+        }
+        
+        // Test 2: Provider Initialization
+        let testManager = null;
+        
+        function testProviderInit() {
+            const testDiv = document.getElementById('providerTest');
+            const apiKey = document.getElementById('testClaudeKey').value.trim();
+            
+            try {
+                if (!apiKey) {
+                    testDiv.innerHTML = '<span class="error">❌ Please enter Claude API key</span>';
+                    return;
+                }
+                
+                log('🔄 Testing provider initialization...');
+                testManager = new AIProviderManager();
+                
+                // Test Claude provider
+                const claudeProvider = new ClaudeProvider(apiKey);
+                testManager.registerProvider('claude', claudeProvider);
+                
+                const provider = testManager.getProvider('claude');
+                if (provider) {
+                    testDiv.innerHTML = '<span class="success">✅ Provider initialized successfully</span>';
+                    log('✅ Claude provider registered successfully');
+                } else {
+                    testDiv.innerHTML = '<span class="error">❌ Provider registration failed</span>';
+                    log('❌ Provider registration failed');
+                }
+            } catch (error) {
+                testDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                log(`❌ Provider init error: ${error.message}`);
+            }
+        }
+        
+        // Test 3: Quality Scorer
+        function testQualityScorer() {
+            const testDiv = document.getElementById('qualityTest');
+            
+            try {
+                log('🔄 Testing quality scorer...');
+                const scorer = new ContentQualityScorer();
+                
+                const testSlides = [
+                    { title: "AI Technology Trends", content: "Machine learning adoption\nAutomation benefits\nFuture opportunities" },
+                    { title: "Business Impact", content: "Revenue growth\nCost reduction\nCompetitive advantage" }
+                ];
+                
+                const score = scorer.score(testSlides);
+                
+                if (score > 0 && score <= 1) {
+                    testDiv.innerHTML = `<span class="success">✅ Quality scoring works! Score: ${score.toFixed(3)}</span>`;
+                    log(`✅ Quality scorer test passed. Score: ${score.toFixed(3)}`);
+                } else {
+                    testDiv.innerHTML = `<span class="error">❌ Invalid score: ${score}</span>`;
+                    log(`❌ Invalid quality score: ${score}`);
+                }
+            } catch (error) {
+                testDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                log(`❌ Quality scorer error: ${error.message}`);
+            }
+        }
+        
+        // Test 4: Full Integration
+        async function testFullGeneration() {
+            const testDiv = document.getElementById('integrationTest');
+            const topic = document.getElementById('testTopic').value.trim();
+            
+            if (!topic) {
+                testDiv.innerHTML = '<span class="error">❌ Please enter a topic</span>';
+                return;
+            }
+            
+            if (!testManager) {
+                testDiv.innerHTML = '<span class="error">❌ Please run provider init test first</span>';
+                return;
+            }
+            
+            try {
+                testDiv.innerHTML = '🔄 Testing full generation...';
+                log('🔄 Starting full generation test...');
+                
+                const provider = testManager.getProvider('claude');
+                const prompt = provider.formatPrompt(topic, 5, { type: 'business', color: 'business' });
+                
+                log('📝 Generated prompt preview: ' + prompt.substring(0, 100) + '...');
+                
+                // Test prompt formatting without actual API call
+                if (prompt && prompt.includes(topic)) {
+                    testDiv.innerHTML = '<span class="success">✅ Prompt generation successful! Check log for details.</span>';
+                    log('✅ Prompt formatting test passed');
+                    log(`📋 Prompt length: ${prompt.length} characters`);
+                } else {
+                    testDiv.innerHTML = '<span class="error">❌ Prompt generation failed</span>';
+                    log('❌ Prompt formatting test failed');
+                }
+            } catch (error) {
+                testDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                log(`❌ Full generation error: ${error.message}`);
+            }
+        }
+        
+        // Initialize tests on load
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Test page loaded');
+            testScriptLoading();
+        });
+    </script>
+</body>
+</html>

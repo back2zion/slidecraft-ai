@@ -404,7 +404,11 @@ class ContentQualityScorer {
 }
 
 // Export for use in main application
-window.AIProviderManager = AIProviderManager;
-window.ClaudeProvider = ClaudeProvider;
-window.OpenAIProvider = OpenAIProvider;
-window.GeminiProvider = GeminiProvider;
+if (typeof window !== 'undefined') {
+    window.AIProviderManager = AIProviderManager;
+    window.ClaudeProvider = ClaudeProvider;
+    window.OpenAIProvider = OpenAIProvider;
+    window.GeminiProvider = GeminiProvider;
+} else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { AIProviderManager, ClaudeProvider, OpenAIProvider, GeminiProvider };
+}

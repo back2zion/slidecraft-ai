@@ -14,7 +14,9 @@
       "Bash(git branch:*)",
       "Bash(mv:*)",
       "Bash(uv init:*)",
-      "Bash(uv add:*)"
+      "Bash(uv add:*)",
+      "Bash(node:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": [],

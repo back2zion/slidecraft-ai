@@ -8,6 +8,7 @@
     <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <script src="ai-providers.js"></script>
+    <script src="template-engine.js"></script>
     
     <!-- Custom Styles -->
     <style>
@@ -444,6 +445,50 @@
                                 <span class="text-sm font-semibold text-blue-800">AI 분석 결과:</span>
                             </div>
                             <p id="analysisText" class="text-blue-700 text-sm mt-1"></p>
+                        </div>
+                        
+                        <!-- Enhanced Template Selection -->
+                        <div id="templateSelection" class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-semibold text-gray-700">
+                                    🎨 Professional Template Selection
+                                </label>
+                                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Enhanced AI</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mb-3">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="auto" checked class="text-purple-600">
+                                    <span class="text-sm">🤖 AI Auto-Select</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="corporate-modern" class="text-purple-600">
+                                    <span class="text-sm">💼 Corporate Modern</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="creative-bold" class="text-purple-600">
+                                    <span class="text-sm">🎯 Creative Bold</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="tech-sleek" class="text-purple-600">
+                                    <span class="text-sm">⚡ Tech Sleek</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="executive-premium" class="text-purple-600">
+                                    <span class="text-sm">👔 Executive Premium</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="pitch-deck" class="text-purple-600">
+                                    <span class="text-sm">🚀 Pitch Deck</span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="enableSmartFitting" checked class="text-purple-600">
+                                <label for="enableSmartFitting" class="text-sm text-gray-700">
+                                    ✨ Enable Smart Content Fitting & Layout Optimization
+                                </label>
+                            </div>
                         </div>
                         
                         <!-- Generate Button -->

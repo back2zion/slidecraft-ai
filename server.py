@@ -98,28 +98,28 @@ def run_server(port=8000):
     """Run the proxy server"""
     try:
         with socketserver.TCPServer(("", port), ProxyHTTPRequestHandler) as httpd:
-            print(f"🚀 SlideCraft AI server is running!")
-            print(f"📍 Open http://localhost:{port} in your browser")
-            print(f"🔧 Proxy API: http://localhost:{port}/api/claude")
-            print(f"⚡ Stop server: Ctrl+C")
+            print(f"SlideCraft AI server is running!")
+            print(f"Open http://localhost:{port} in your browser")
+            print(f"Proxy API: http://localhost:{port}/api/claude")
+            print(f"Stop server: Ctrl+C")
             print("-" * 50)
             httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n🛑 Server stopped.")
+        print("\nServer stopped.")
     except OSError as e:
         if e.errno == 10048:  # Port already in use on Windows
-            print(f"❌ Port {port} is already in use. Trying another port...")
-            print(f"💡 Retrying with port {port + 1}...")
+            print(f"Port {port} is already in use. Trying another port...")
+            print(f"Retrying with port {port + 1}...")
             run_server(port + 1)
         else:
-            print(f"❌ Server start error: {e}")
+            print(f"Server start error: {e}")
 
 if __name__ == "__main__":
     # Check for API key
     api_key = os.getenv('CLAUDE_API_KEY')
     if not api_key:
-        print("⚠️  Warning: CLAUDE_API_KEY environment variable not set.")
-        print("💡 You can enter API key directly in the web interface.")
+        print("Warning: CLAUDE_API_KEY environment variable not set.")
+        print("You can enter API key directly in the web interface.")
         print()
     
     run_server()
