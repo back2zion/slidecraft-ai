@@ -3,7 +3,7 @@
    Professional color palette with excellent readability
    ========================================================================== */
 
-/* CSS Custom Properties (Variables) */
+/* CSS Custom Properties (Variables) - Updated for hero text visibility */
 :root {
   /* Primary Colors - High contrast blue theme */
   --primary-50: #eff6ff;
