@@ -128,22 +128,24 @@ body {
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
-  color: white !important;
+  color: #ffffff !important;
   margin-bottom: var(--spacing-lg);
   line-height: 1.1;
-  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
   position: relative;
   z-index: 100;
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: white !important;
+  color: #ffffff !important;
   max-width: 800px;
   margin: 0 auto var(--spacing-xl);
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+  text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
   position: relative;
   z-index: 100;
+  font-weight: 600 !important;
+  line-height: 1.4;
 }
 
 /* ==========================================================================
