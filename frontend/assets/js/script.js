@@ -1210,6 +1210,16 @@ function saveGeminiKey() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 SlideCraft AI - Multi-LLM Version Initialized');
     
+    // Ensure i18n is initialized and apply translations
+    setTimeout(() => {
+        if (typeof i18n !== 'undefined' && i18n && typeof i18n.applyTranslations === 'function') {
+            i18n.applyTranslations();
+            console.log('🌐 다국어 번역 적용 완료');
+        } else {
+            console.warn('⚠️ i18n 시스템이 준비되지 않았습니다');
+        }
+    }, 200);
+    
     // Initialize AI providers
     initializeAIProviders();
     

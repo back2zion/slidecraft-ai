@@ -58,6 +58,7 @@ const translations = {
         'btn.preview': '미리보기',
         'btn.prev': '이전',
         'btn.next': '다음',
+        'btn.save': '저장',
         
         // API Configuration
         'api.title': 'AI 모델 설정',
@@ -82,11 +83,12 @@ const translations = {
         'preview.placeholder.content': '• 내용을 입력하세요\n• 최적의 구조와 디자인이 자동으로 선택됩니다\n• 전문가급 프레젠테이션을 경험해보세요',
         
         // Status Messages
-        'status.generating': '프레젠테이션을 생성하고 있습니다...',
-        'status.success': '프레젠테이션이 성공적으로 생성되었습니다!',
+        'status.generating': '🤖 AI가 완벽한 PPT를 생성하고 있습니다...',
+        'status.success': '🎉 완벽한 PPT가 완성되었습니다!',
         'status.error': '오류가 발생했습니다. 다시 시도해주세요.',
         'status.apikey.required': 'API 키를 입력해주세요.',
         'status.topic.required': '주제를 입력해주세요.',
+        'status.beta': 'Beta',
         
         // Help & Instructions
         'help.title': '사용 방법',
@@ -163,6 +165,7 @@ Examples:
         'btn.preview': 'Preview',
         'btn.prev': 'Previous',
         'btn.next': 'Next',
+        'btn.save': 'Save',
         
         // API Configuration
         'api.title': 'AI Model Configuration',
@@ -187,11 +190,12 @@ Examples:
         'preview.placeholder.content': '• Enter your content here\n• Optimal structure and design will be automatically selected\n• Experience professional-grade presentations',
         
         // Status Messages
-        'status.generating': 'Generating your presentation...',
-        'status.success': 'Presentation generated successfully!',
+        'status.generating': '🤖 AI is creating your perfect presentation...',
+        'status.success': '🎉 Perfect presentation completed!',
         'status.error': 'An error occurred. Please try again.',
         'status.apikey.required': 'Please enter your API key.',
         'status.topic.required': 'Please enter a topic.',
+        'status.beta': 'Beta',
         
         // Help & Instructions
         'help.title': 'How to Use',
@@ -219,7 +223,7 @@ Examples:
 // I18n System Class
 class I18nSystem {
     constructor() {
-        this.currentLanguage = 'en'; // Default to English
+        this.currentLanguage = 'ko'; // Default to Korean for Korean users
         this.translations = translations;
         this.init();
     }
