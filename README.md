@@ -32,6 +32,8 @@ Claude AI를 활용하여 자연어 입력만으로 전문적인 PowerPoint 프�
 - **PPT 생성**: PptxGenJS
 - **AI**: Claude API (Anthropic)
 - **스타일**: 커스텀 CSS
+- **패키지 관리**: UV (Python 패키지 매니저)
+- **서버**: Python HTTP Server (CORS 프록시)
 
 ## 🚀 사용 방법
 
@@ -39,6 +41,24 @@ Claude AI를 활용하여 자연어 입력만으로 전문적인 PowerPoint 프�
 GitHub Pages에서 바로 사용하세요: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)**
 
 ### 로컬 실행
+
+#### 🚀 UV 사용 (권장 - 빠르고 현대적)
+```bash
+# 1. 프로젝트 클론
+git clone https://github.com/back2zion/slidecraft-ai.git
+cd slidecraft-ai
+
+# 2. UV로 환경 설정 (자동으로 Python 설치)
+uv sync
+
+# 3. 프록시 서버 실행 (CORS 해결용)
+uv run python server.py
+
+# 4. 또는 단순 파일 서버
+python -m http.server 8000
+```
+
+#### 📦 기존 방법
 ```bash
 git clone https://github.com/back2zion/slidecraft-ai.git
 cd slidecraft-ai
@@ -66,11 +86,15 @@ python -m http.server 8000
 
 ### 프로젝트 구조
 ```
-web/
-├── index.html          # 메인 HTML 파일
-├── script.js           # JavaScript 로직
-├── server.py           # 프록시 서버 (CORS 해결)
-└── README.md           # 프로젝트 설명
+slidecraft-ai/
+├── index.html          # 🎨 메인 웹 애플리케이션
+├── script.js           # ⚡ JavaScript 로직 및 AI 통합
+├── server.py           # 🔧 CORS 프록시 서버 (선택적)
+├── pyproject.toml      # 🚀 UV 프로젝트 설정
+├── uv.lock            # 🔒 의존성 잠금 파일
+├── .env.example       # 🔑 환경변수 예시
+├── README.md          # 📖 프로젝트 문서
+└── .venv/             # 🐍 가상환경 (UV가 자동 생성)
 ```
 
 ### API 키 보안
@@ -86,6 +110,8 @@ web/
 - ✅ 모바일 반응형
 - ✅ 실시간 프리뷰
 - ✅ 다중 다운로드 옵션
+- ⚡ UV 기반 빠른 개발 환경
+- 🔒 API 키 보안 로컬 저장
 
 ## 🤝 기여하기
 
