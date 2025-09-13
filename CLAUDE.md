@@ -285,6 +285,12 @@ uv run --group waitlist waitlist-server.py
 5. **Commit**: Follow conventional commit format
 6. **Push**: `git push origin feature/new-feature`
 
+### Commit Message Guidelines
+- Use clear, descriptive commit messages
+- DO NOT include "Generated with [Claude Code]" or "Co-Authored-By: Claude" attributions
+- Focus on what was implemented and why
+- Example: "Add internationalization support with Korean/English switching"
+
 ### Code Standards
 - **Python**: Follow PEP 8, use UV for dependency management
 - **JavaScript**: ES6+, modular architecture
