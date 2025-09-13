@@ -16,7 +16,8 @@
       "Bash(uv init:*)",
       "Bash(uv add:*)",
       "Bash(node:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(uv run:*)"
     ],
     "deny": [],
     "ask": [],

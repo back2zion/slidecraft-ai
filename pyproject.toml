@@ -17,7 +17,9 @@ classifiers = [
     "Topic :: Office/Business :: Office Suites",
 ]
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "python-dotenv>=1.1.1",
+]
 
 [project.urls]
 Homepage = "https://back2zion.github.io/slidecraft-ai/"
@@ -27,4 +29,14 @@ Issues = "https://github.com/back2zion/slidecraft-ai/issues"
 [dependency-groups]
 dev = [
     "python-dotenv>=1.1.1",
+]
+waitlist = [
+    "flask>=3.0.0",
+    "flask-cors>=4.0.0", 
+    "python-dotenv>=1.1.1",
+    "secure-smtplib>=0.1.0",
+]
+testing = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
 ]

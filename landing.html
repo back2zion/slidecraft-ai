@@ -30,30 +30,34 @@
     
     <!-- Custom Landing Page Styles -->
     <style>
-        /* Landing Page Specific Styles */
+        /* Skywork-inspired Clean Design */
         .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
         
         .hero-content {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
         }
         
         .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
         }
         
         .testimonial-card {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            color: #334155;
         }
         
         .stats-counter {
@@ -63,9 +67,10 @@
         }
         
         .waitlist-form {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
         .floating-shapes {
@@ -105,9 +110,9 @@
             animation-delay: 4s;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        /* Remove floating animation for cleaner look */
+        .section-spacing {
+            padding: 100px 0;
         }
         
         .video-container {
@@ -115,9 +120,10 @@
             width: 100%;
             height: 0;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e5e7eb;
         }
         
         .video-container iframe {
@@ -129,7 +135,7 @@
         }
         
         .notification-banner {
-            background: linear-gradient(90deg, #10b981, #059669);
+            background: #1e40af;
             color: white;
             padding: 12px 0;
             text-align: center;
@@ -138,10 +144,12 @@
         }
         
         .cta-button {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: #3b82f6;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border-radius: 12px;
+            font-weight: 600;
         }
         
         .cta-button::before {
@@ -160,8 +168,9 @@
         }
         
         .cta-button:hover {
+            background: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
         
         .social-proof-logos {
@@ -223,7 +232,7 @@
                     <a href="#features" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Features</a>
                     <a href="#demo" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Demo</a>
                     <a href="#pricing" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Pricing</a>
-                    <a href="index.html" class="ds-button ds-button--secondary ds-button--sm">Try Now</a>
+                    <a href="/" class="ds-button ds-button--secondary ds-button--sm">Try SlideCraft AI →</a>
                 </div>
             </div>
         </div>
@@ -231,30 +240,25 @@
 
     <!-- Hero Section -->
     <section class="hero-gradient relative overflow-hidden" style="padding-top: 160px; padding-bottom: 120px;">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
         
         <div class="ds-container ds-container--xl relative z-10">
             <div class="text-center">
                 <h1 class="hero-title" style="font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 1.5rem; line-height: 1.1;">
-                    Transform Ideas into<br>
-                    <span style="background: linear-gradient(135deg, #f093fb, #f5576c); -webkit-background-clip: text; background-clip: text; color: transparent;">Professional Presentations</span>
+                    Turn 8 Hours of Work into<br>
+                    <span style="background: linear-gradient(135deg, #60a5fa, #34d399); -webkit-background-clip: text; background-clip: text; color: transparent;">8 Minutes</span>
                 </h1>
                 
                 <p class="hero-subtitle" style="font-size: 1.5rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4;">
-                    Create stunning, engaging presentations in minutes with our AI-powered platform. No design skills required.
+                    AI-powered presentation generator that creates professional slides from your ideas. Stop spending hours on design — focus on your message.
                 </p>
                 
                 <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 1rem; margin-bottom: 4rem;">
-                    <button id="heroCtaBtn" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer;">
-                        🚀 Join Waitlist - Free Early Access
-                    </button>
-                    <a href="#demo" style="color: white; text-decoration: underline; font-weight: 500;">
-                        Watch Demo ▶️
+                    <a href="/" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer; text-decoration: none; display: inline-block;">
+                        🚀 Try SlideCraft AI Now
                     </a>
+                    <button id="heroCtaBtn" class="text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: 2px solid white; background: transparent; cursor: pointer;">
+                        📝 Join Waitlist
+                    </button>
                 </div>
                 
                 <!-- Social Proof -->
@@ -374,7 +378,7 @@
                 <div class="video-container">
                     <!-- Replace with actual demo video -->
                     <iframe 
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        src="https://www.youtube.com/embed/pBW2L7jmffw" 
                         title="SlideCraft AI Demo" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -471,11 +475,6 @@
 
     <!-- Waitlist Section -->
     <section id="waitlist" style="padding: 120px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
         
         <div class="ds-container ds-container--xl relative z-10">
             <div class="text-center" style="margin-bottom: 3rem;">
@@ -588,7 +587,7 @@
                         <a href="#features" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Features</a>
                         <a href="#demo" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Demo</a>
                         <a href="#pricing" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Pricing</a>
-                        <a href="index.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Try Now</a>
+                        <a href="/" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Launch App</a>
                     </div>
                 </div>
                 

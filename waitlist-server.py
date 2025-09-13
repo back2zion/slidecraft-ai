@@ -12,6 +12,7 @@ import datetime
 import re
 import sqlite3
 from typing import Dict, Any, Optional
+from email_config import email_sender
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend requests
@@ -87,7 +88,34 @@ class WaitlistDatabase:
                 cursor.execute('UPDATE waitlist_stats SET total_signups = total_signups + 1, last_updated = CURRENT_TIMESTAMP')
                 
                 conn.commit()
-                return {'success': True, 'message': 'Successfully added to waitlist'}
+                
+                # Send welcome email to user
+                try:
+                    email_sent = email_sender.send_welcome_email(email, name)
+                    if email_sent:
+                        print(f"✅ Welcome email sent to {email}")
+                    else:
+                        print(f"⚠️ Failed to send welcome email to {email}")
+                except Exception as e:
+                    print(f"❌ Email sending error: {str(e)}")
+                
+                # Send admin notification
+                try:
+                    signup_data = {
+                        'email': email,
+                        'name': name,
+                        'user_type': user_type,
+                        'ip_address': ip_address,
+                        'user_agent': user_agent,
+                        'created_at': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    }
+                    admin_email_sent = email_sender.send_admin_notification(signup_data)
+                    if admin_email_sent:
+                        print(f"📧 Admin notification sent for {email}")
+                except Exception as e:
+                    print(f"❌ Admin notification error: {str(e)}")
+                
+                return {'success': True, 'message': 'Successfully added to waitlist! Check your email for confirmation.'}
                 
         except sqlite3.Error as e:
             return {'success': False, 'error': f'Database error: {str(e)}'}
@@ -318,6 +346,44 @@ def health_check():
         'timestamp': datetime.datetime.now().isoformat(),
         'database': 'connected' if os.path.exists(DATABASE_FILE) else 'not_found'
     })
+
+@app.route('/api/test-email', methods=['POST'])
+def test_email():
+    """Test email configuration and send test email."""
+    try:
+        data = request.get_json()
+        test_email_address = data.get('email', '')
+        
+        if not test_email_address:
+            return jsonify({'success': False, 'error': 'Email address required'}), 400
+        
+        # Test connection first
+        connection_test = email_sender.test_connection()
+        if not connection_test['success']:
+            return jsonify({
+                'success': False, 
+                'error': f"Email configuration error: {connection_test['message']}"
+            }), 500
+        
+        # Send test email
+        email_sent = email_sender.send_welcome_email(test_email_address, "Test User")
+        
+        if email_sent:
+            return jsonify({
+                'success': True, 
+                'message': f'Test email sent successfully to {test_email_address}'
+            })
+        else:
+            return jsonify({
+                'success': False, 
+                'error': 'Failed to send test email'
+            }), 500
+            
+    except Exception as e:
+        return jsonify({
+            'success': False, 
+            'error': f'Test email failed: {str(e)}'
+        }), 500
 
 # Error handlers
 @app.errorhandler(404)

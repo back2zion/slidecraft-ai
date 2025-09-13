@@ -11,10 +11,10 @@ import sys
 import os
 
 def start_main_server():
-    """Start the main PPT generator server."""
+    """Start the main PPT generator server using UV."""
     print("🚀 Starting SlideCraft AI Main Server on port 8000...")
     try:
-        subprocess.run([sys.executable, "server.py"], check=True)
+        subprocess.run(["uv", "run", "server.py"], check=True)
     except KeyboardInterrupt:
         print("\n📱 Main server stopped")
     except FileNotFoundError:
@@ -23,10 +23,10 @@ def start_main_server():
         print(f"❌ Error starting main server: {e}")
 
 def start_waitlist_server():
-    """Start the waitlist server."""
+    """Start the waitlist server using UV."""
     print("📝 Starting Waitlist Server on port 5001...")
     try:
-        subprocess.run([sys.executable, "waitlist-server.py"], check=True)
+        subprocess.run(["uv", "run", "--group", "waitlist", "waitlist-server.py"], check=True)
     except KeyboardInterrupt:
         print("\n📝 Waitlist server stopped")
     except FileNotFoundError:
