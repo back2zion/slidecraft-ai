@@ -1,119 +1,119 @@
-# 🚀 AI PPT Generator
+# 🚀 SlideCraft AI
 
-> **간단한 설명만으로 완벽한 프레젠테이션을 만들어주는 AI 기반 PPT 생성기**
+> **Transform ideas into stunning presentations with AI - One-click PowerPoint generation using Claude AI**
 
-Claude AI를 활용하여 자연어 입력만으로 전문적인 PowerPoint 프레젠테이션을 자동 생성합니다.
+Create professional PowerPoint presentations automatically from natural language descriptions using Claude AI.
 
-## ✨ 주요 기능
+## ✨ Key Features
 
-### 🎯 원클릭 완성
-- 자연어 입력만으로 완벽한 PPT 생성
-- AI 자동 주제 분석 및 템플릿 선택  
-- 실시간 프리뷰 및 편집
+### 🎯 One-Click Creation
+- Generate perfect presentations from natural language input
+- AI-powered topic analysis and template selection  
+- Real-time preview and editing capabilities
 
-### 🎨 프로페셔널 디자인
-- 4가지 카테고리별 자동 색상 테마
-- 현대적인 레이아웃과 타이포그래피
-- 반응형 웹 인터페이스
+### 🎨 Professional Design
+- 4 category-based automatic color themes
+- Modern layouts and typography
+- Responsive web interface
 
-### 🤖 스마트 AI 통합
-- Claude API 기반 콘텐츠 생성
-- 주제별 최적화된 구조 설계
-- 대상 및 시간에 맞춤 조정
+### 🤖 Smart AI Integration
+- Claude API-powered content generation
+- Topic-optimized structure design
+- Customized for target audience and duration
 
-### ⚡ 클라이언트 사이드 실행
-- PptxGenJS로 브라우저에서 직접 PPT 생성
-- 서버 없이 완전 독립 실행
-- 즉시 다운로드 (.pptx 파일)
+### ⚡ Client-Side Execution
+- Direct PPT generation in browser with PptxGenJS
+- Completely independent - no server required
+- Instant download (.pptx files)
 
-## 🛠️ 기술 스택
+## 🛠️ Tech Stack
 
 - **Frontend**: Vanilla HTML/CSS/JavaScript
-- **PPT 생성**: PptxGenJS
+- **PPT Generation**: PptxGenJS
 - **AI**: Claude API (Anthropic)
-- **스타일**: 커스텀 CSS
-- **패키지 관리**: UV (Python 패키지 매니저)
-- **서버**: Python HTTP Server (CORS 프록시)
+- **Styling**: Custom CSS
+- **Package Manager**: UV (Python Package Manager)
+- **Server**: Python HTTP Server (CORS Proxy)
 
-## 🚀 사용 방법
+## 🚀 Getting Started
 
-### 온라인 사용 (권장)
-GitHub Pages에서 바로 사용하세요: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)**
+### Online Usage (Recommended)
+Use directly on GitHub Pages: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)**
 
-### 로컬 실행
+### Local Development
 
-#### 🚀 UV 사용 (권장 - 빠르고 현대적)
+#### 🚀 Using UV (Recommended - Fast & Modern)
 ```bash
-# 1. 프로젝트 클론
+# 1. Clone the repository
 git clone https://github.com/back2zion/slidecraft-ai.git
 cd slidecraft-ai
 
-# 2. UV로 환경 설정 (자동으로 Python 설치)
+# 2. Setup environment with UV (auto-installs Python)
 uv sync
 
-# 3. 프록시 서버 실행 (CORS 해결용)
+# 3. Run proxy server (for CORS resolution)
 uv run python server.py
 
-# 4. 또는 단순 파일 서버
+# 4. Or simple file server
 python -m http.server 8000
 ```
 
-#### 📦 기존 방법
+#### 📦 Traditional Method
 ```bash
 git clone https://github.com/back2zion/slidecraft-ai.git
 cd slidecraft-ai
 python -m http.server 8000
-# 브라우저에서 http://localhost:8000 접속
+# Open browser at http://localhost:8000
 ```
 
-## 📝 사용 가이드
+## 📝 How to Use
 
-1. **API 키 설정**: Claude API 키를 [console.anthropic.com](https://console.anthropic.com/)에서 발급받아 입력
-2. **주제 입력**: 자연스럽게 원하는 PPT 설명을 입력
-3. **옵션 선택**: 분량, 대상, 시간 선택
-4. **AI 생성**: "AI 마법으로 PPT 완성하기!" 클릭
-5. **미리보기**: 실시간으로 슬라이드 확인
-6. **다운로드**: 완성된 PPT 파일 다운로드
+1. **API Setup**: Get your Claude API key from [console.anthropic.com](https://console.anthropic.com/) and enter it
+2. **Input Topic**: Naturally describe the presentation you want to create
+3. **Select Options**: Choose slide count, target audience, and presentation duration
+4. **AI Generation**: Click "Generate PPT with AI Magic!"
+5. **Preview**: View slides in real-time with navigation
+6. **Download**: Get your completed PPT file
 
-## 🎨 색상 테마
+## 🎨 Color Themes
 
-- **마케팅**: 오렌지-레드 그라데이션
-- **기술**: 블루-퍼플 그라데이션  
-- **교육**: 그린-블루 그라데이션
-- **비즈니스**: 코퍼레이트 블루
+- **Marketing**: Orange-Red gradient
+- **Technology**: Blue-Purple gradient  
+- **Education**: Green-Blue gradient
+- **Business**: Corporate Blue
 
-## 🔧 개발 정보
+## 🔧 Development
 
-### 프로젝트 구조
+### Project Structure
 ```
 slidecraft-ai/
-├── index.html          # 🎨 메인 웹 애플리케이션
-├── script.js           # ⚡ JavaScript 로직 및 AI 통합
-├── server.py           # 🔧 CORS 프록시 서버 (선택적)
-├── pyproject.toml      # 🚀 UV 프로젝트 설정
-├── uv.lock            # 🔒 의존성 잠금 파일
-├── .env.example       # 🔑 환경변수 예시
-├── README.md          # 📖 프로젝트 문서
-└── .venv/             # 🐍 가상환경 (UV가 자동 생성)
+├── index.html          # 🎨 Main web application
+├── script.js           # ⚡ JavaScript logic & AI integration
+├── server.py           # 🔧 CORS proxy server (optional)
+├── pyproject.toml      # 🚀 UV project configuration
+├── uv.lock            # 🔒 Dependency lock file
+├── .env.example       # 🔑 Environment variables example
+├── README.md          # 📖 Project documentation
+└── .venv/             # 🐍 Virtual environment (auto-created by UV)
 ```
 
-### API 키 보안
-- API 키는 localStorage에만 저장
-- GitHub에는 업로드되지 않음
-- 클라이언트 사이드에서만 사용
+### API Key Security
+- API keys stored in localStorage only
+- Never uploaded to GitHub
+- Client-side only usage
 
-## 🌟 특징
+## 🌟 Features
 
-- ✅ 완전 무료 오픈소스
-- ✅ 서버 설치 불필요
-- ✅ 모던 브라우저 지원
-- ✅ 모바일 반응형
-- ✅ 실시간 프리뷰
-- ✅ 다중 다운로드 옵션
-- ⚡ UV 기반 빠른 개발 환경
-- 🔒 API 키 보안 로컬 저장
+- ✅ Completely free and open source
+- ✅ No server installation required
+- ✅ Modern browser support
+- ✅ Mobile responsive design
+- ✅ Real-time preview
+- ✅ Multiple download options
+- ⚡ UV-powered fast development environment
+- 🔒 Secure local API key storage
 
-## 🤝 기여하기
+## 🤝 Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -121,20 +121,20 @@ slidecraft-ai/
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 라이선스
+## 📄 License
 
-MIT License - 자세한 내용은 `LICENSE` 파일을 참조하세요.
+MIT License - see the `LICENSE` file for details.
 
-## 👨‍💻 제작자
+## 👨‍💻 Author
 
 **Kwak Dooil**
 - Email: [babel.ai.dub@gmail.com](mailto:babel.ai.dub@gmail.com)
 
-## 🙏 감사의 말
+## 🙏 Acknowledgments
 
-- [Claude AI](https://claude.ai) - 강력한 AI 모델 제공
-- [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) - PPT 생성 라이브러리
-- [GitHub Pages](https://pages.github.com/) - 무료 호스팅
+- [Claude AI](https://claude.ai) - Powerful AI model
+- [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) - PPT generation library
+- [GitHub Pages](https://pages.github.com/) - Free hosting
 
 ---
 
