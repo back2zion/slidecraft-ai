@@ -223,42 +223,74 @@ Examples:
 // I18n System Class
 class I18nSystem {
     constructor() {
-        this.currentLanguage = 'ko'; // Default to Korean for Korean users
+        this.currentLanguage = null; // Will be set by detectLanguage
         this.translations = translations;
         this.init();
     }
     
     init() {
-        // Detect browser language
-        this.detectLanguage();
-        
-        // Load saved language preference
+        // Check saved preference first
         const savedLang = localStorage.getItem('slidecraft_language');
+        
         if (savedLang && this.translations[savedLang]) {
+            // User has explicitly chosen a language before
             this.currentLanguage = savedLang;
+            console.log(`🔖 Using saved language preference: ${this.currentLanguage}`);
+        } else {
+            // Auto-detect browser language for first-time users
+            this.detectLanguage();
+            console.log(`🌍 Auto-detected browser language: ${this.currentLanguage}`);
         }
+        
+        // Set HTML lang attribute
+        document.documentElement.lang = this.currentLanguage;
         
         // Apply initial translations
         this.applyTranslations();
         this.setupLanguageSwitcher();
         
+        // Show welcome message in detected language
+        const welcomeMsg = this.currentLanguage === 'ko' 
+            ? `🇰🇷 한국어로 자동 설정되었습니다` 
+            : `🇺🇸 Automatically set to English`;
+        console.log(welcomeMsg);
         console.log(`🌐 I18n initialized with language: ${this.currentLanguage}`);
     }
     
     detectLanguage() {
-        // Get browser language
-        const browserLang = navigator.language || navigator.userLanguage;
+        // Get browser language with multiple fallbacks
+        const browserLang = navigator.language || navigator.userLanguage || 'en';
+        console.log(`🔍 Browser reported language: ${browserLang}`);
         
-        // Check for Korean
-        if (browserLang.startsWith('ko')) {
+        // Get all browser languages if available
+        const languages = navigator.languages || [browserLang];
+        console.log(`📋 All browser languages: ${languages.join(', ')}`);
+        
+        // Check for Korean in any of the language preferences
+        const hasKorean = languages.some(lang => 
+            lang.toLowerCase().startsWith('ko') || 
+            lang.toLowerCase().includes('kr')
+        );
+        
+        if (hasKorean) {
             this.currentLanguage = 'ko';
-        }
-        // Check for other languages (default to English)
-        else {
+        } else {
+            // Default to English for all other languages
             this.currentLanguage = 'en';
         }
         
-        console.log(`🌍 Browser language detected: ${browserLang} → Using: ${this.currentLanguage}`);
+        // Also check browser's Accept-Language header indirectly via timezone
+        try {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            if (timezone && timezone.includes('Seoul')) {
+                console.log(`🕐 Korean timezone detected: ${timezone}`);
+                this.currentLanguage = 'ko';
+            }
+        } catch (e) {
+            console.log('Timezone detection not available');
+        }
+        
+        console.log(`✅ Final detected language: ${this.currentLanguage}`);
     }
     
     translate(key) {
