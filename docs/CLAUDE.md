@@ -298,6 +298,29 @@ uv run --group waitlist waitlist-server.py
 - **CSS**: Custom properties, mobile-first
 - **Documentation**: Update CLAUDE.md for significant changes
 
+### 3-Round Testing Protocol ⚠️
+**모든 코드 작성/수정 후 반드시 3번 점검하고 테스트할 것**
+
+1. **첫 번째 점검**: 코드 작성 직후 기본 동작 확인
+2. **두 번째 점검**: 실제 브라우저에서 UI/UX 테스트 
+3. **세 번째 점검**: 모바일 기기 및 다양한 환경에서 검증
+
+#### 점검해야 할 주요 항목들
+- 📱 모바일 반응형 디자인 동작
+- 🎨 CSS 스타일링 정상 적용
+- 🌐 i18n 번역 시스템 작동
+- 🔗 링크 및 버튼 기능성
+- 🎯 사용자 경험 흐름
+- 🚀 페이지 로딩 속도
+- ♿ 접근성 및 사용성
+
+#### 문제 발생시 체크리스트
+- [ ] CSS 우선순위 및 특이성 확인
+- [ ] JavaScript 로딩 순서 점검
+- [ ] 브라우저 캐시 클리어 후 재테스트
+- [ ] 개발자 도구 콘솔 에러 확인
+- [ ] 다른 브라우저에서 크로스 체크
+
 ## Project Evolution
 
 This project has evolved significantly:
