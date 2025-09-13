@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideCraft Pro - Professional Presentation Builder</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="ai-providers.js"></script>
+    <script src="template-engine.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        .animate-pulse-custom {
+            animation: pulseCustom 2s infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulseCustom {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+        }
+        
+        .preview-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 350px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            top: 60%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Layout Classes */
+        .container { max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .gap-4 { gap: 1rem; }
+        .gap-8 { gap: 2rem; }
+        .flex { display: flex; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .text-center { text-align: center; }
+        .hidden { display: none; }
+        .w-full { width: 100%; }
+        .h-32 { height: 8rem; }
+        .max-w-7xl { max-width: 80rem; }
+        
+        /* Spacing */
+        .p-4 { padding: 1rem; }
+        .p-8 { padding: 2rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-16 { margin-top: 4rem; }
+        .ml-2 { margin-left: 0.5rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        
+        /* Typography */
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-5xl { font-size: 3rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        
+        /* Colors */
+        .text-white { color: white; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-blue-600 { color: #2563eb; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-blue-800 { color: #1e40af; }
+        .text-green-600 { color: #16a34a; }
+        .text-green-800 { color: #166534; }
+        .text-purple-600 { color: #9333ea; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-green-50 { background-color: #f0fdf4; }
+        .bg-purple-100 { background-color: #f3e8ff; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-gray-600 { background-color: #4b5563; }
+        
+        /* Borders */
+        .border { border-width: 1px; }
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-blue-200 { border-color: #bfdbfe; }
+        .border-green-200 { border-color: #bbf7d0; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-full { border-radius: 9999px; }
+        
+        /* Form Elements */
+        input, select, textarea {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+        }
+        
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .resize-none { resize: none; }
+        
+        /* Responsive */
+        @media (min-width: 1024px) {
+            .lg\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="text-center text-white">
+            <div class="spinner mx-auto mb-4"></div>
+            <p id="loadingText" class="text-lg">🤖 AI가 완벽한 PPT를 생성하고 있습니다...</p>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12 animate-fade-in">
+            <h1 class="text-5xl font-bold text-white mb-4">
+                📊 SlideCraft Pro
+            </h1>
+            <p class="text-xl text-white/80 mb-2">
+                간단한 설명만으로 완벽한 프레젠테이션을 만들어 드립니다
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Input Section -->
+                <div class="glass-card rounded-2xl p-8 animate-slide-up">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        🚀 AI 스마트 PPT 생성기
+                        <span class="ml-2 text-sm bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Beta</span>
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <!-- AI Provider Selection -->
+                        <div id="aiProviderSection" class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-semibold text-gray-700">
+                                    🤖 AI Provider Selection
+                                </label>
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Pro Feature</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-3 mb-3">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="claude" checked class="text-purple-600">
+                                    <span class="text-sm">Claude 3.5</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="openai" class="text-purple-600">
+                                    <span class="text-sm">GPT-4</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="aiProvider" value="gemini" class="text-purple-600">
+                                    <span class="text-sm">Gemini Pro</span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="enableComparison" class="text-purple-600">
+                                <label for="enableComparison" class="text-sm text-gray-700">
+                                    🏆 Enable AI Quality Comparison (uses multiple providers)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- API Key Input (Initially Hidden) -->
+                        <div id="apiKeySection" class="hidden bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                🔑 <span id="providerName">Claude</span> API Key Required
+                            </label>
+                            <div class="flex gap-2 mb-2">
+                                <input 
+                                    type="password" 
+                                    id="apiKeyInput" 
+                                    placeholder="Enter your API key..." 
+                                    class="flex-1 p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors"
+                                />
+                                <button id="saveApiKey" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg font-semibold">
+                                    Save
+                                </button>
+                            </div>
+                            
+                            <!-- Multiple API Key Inputs -->
+                            <div id="multipleApiKeys" class="hidden space-y-2">
+                                <div class="flex gap-2">
+                                    <input type="password" id="openaiKeyInput" placeholder="OpenAI API Key" class="flex-1 p-2 border rounded">
+                                    <button id="saveOpenAIKey" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Save</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="password" id="geminiKeyInput" placeholder="Gemini API Key" class="flex-1 p-2 border rounded">
+                                    <button id="saveGeminiKey" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Save</button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center mt-2">
+                                <p class="text-xs text-gray-600">
+                                    API keys stored securely in browser only. 
+                                    <span id="apiKeyLinks">
+                                        <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Get Claude API</a>
+                                    </span>
+                                </p>
+                                <button id="showMultipleKeys" class="text-xs text-blue-600 underline">Configure All Providers</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Input -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">
+                                💬 어떤 프레젠테이션을 만들고 싶으신가요?
+                            </label>
+                            <textarea 
+                                id="topicInput"
+                                placeholder="자연스럽게 말하듯이 입력하세요!
+
+예시:
+• '우리 팀 2025년 마케팅 전략을 경영진에게 발표해야 해'
+• '2024년 4분기 매출 성과 보고서'
+• '신제품 출시 전략 프레젠테이션'
+• '디지털 트랜스포메이션 추진 계획'"
+                                class="w-full h-32 p-4 border border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 resize-none"
+                                style="position: relative; z-index: 10;"
+                                oninput="updatePreview()"
+                            ></textarea>
+                        </div>
+                        
+                        <!-- Options Row -->
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">📊 분량</label>
+                                <select id="slideCount" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
+                                    <option value="5">5장</option>
+                                    <option value="8">8장</option>
+                                    <option value="10" selected>10장</option>
+                                    <option value="12">12장</option>
+                                    <option value="15">15장</option>
+                                    <option value="20">20장</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">👥 대상</label>
+                                <select id="targetAudience" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
+                                    <option value="팀원/동료">팀원/동료</option>
+                                    <option value="고객/클라이언트">고객/클라이언트</option>
+                                    <option value="경영진">경영진</option>
+                                    <option value="학생/교육생">학생/교육생</option>
+                                    <option value="일반 대중">일반 대중</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">⏰ 발표시간</label>
+                                <select id="presentationTime" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
+                                    <option value="5분">5분</option>
+                                    <option value="10분">10분</option>
+                                    <option value="15분" selected>15분</option>
+                                    <option value="20분">20분</option>
+                                    <option value="30분">30분</option>
+                                    <option value="60분+">60분+</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Analysis Display -->
+                        <div id="aiAnalysis" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">🤖</span>
+                                <span class="text-sm font-semibold text-blue-800">분석 결과:</span>
+                            </div>
+                            <p id="analysisText" class="text-blue-700 text-sm mt-1"></p>
+                        </div>
+                        
+                        <!-- Enhanced Template Selection -->
+                        <div id="templateSelection" class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-semibold text-gray-700">
+                                    🎨 Professional Template Selection
+                                </label>
+                                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Enhanced AI</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mb-3">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="auto" checked class="text-purple-600">
+                                    <span class="text-sm">🤖 AI Auto-Select</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="corporate-modern" class="text-purple-600">
+                                    <span class="text-sm">💼 Corporate Modern</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="creative-bold" class="text-purple-600">
+                                    <span class="text-sm">🎯 Creative Bold</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="tech-sleek" class="text-purple-600">
+                                    <span class="text-sm">⚡ Tech Sleek</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="executive-premium" class="text-purple-600">
+                                    <span class="text-sm">👔 Executive Premium</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
+                                    <input type="radio" name="templateType" value="pitch-deck" class="text-purple-600">
+                                    <span class="text-sm">🚀 Pitch Deck</span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" id="enableSmartFitting" checked class="text-purple-600">
+                                <label for="enableSmartFitting" class="text-sm text-gray-700">
+                                    ✨ Enable Smart Content Fitting & Layout Optimization
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Generate Button -->
+                        <button 
+                            id="generateBtn"
+                            onclick="generatePresentation()"
+                            class="w-full btn-primary text-white font-bold py-4 px-8 rounded-xl text-lg animate-pulse-custom hover:animate-none transition-all duration-300"
+                        >
+                            📈 프로페셔널 프레젠테이션 생성
+                        </button>
+                        
+                        <!-- Success Stats (Hidden by default) -->
+                        <div id="successStats" class="hidden bg-green-50 border border-green-200 rounded-lg p-4">
+                            <div class="text-center">
+                                <p class="text-green-800 font-semibold">🎉 완벽한 PPT가 완성되었습니다!</p>
+                                <p id="statsText" class="text-green-600 text-sm mt-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Preview Section -->
+                <div class="glass-card rounded-2xl p-8 animate-slide-up" style="animation-delay: 0.2s;">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">👁️ 실시간 프리뷰</h2>
+                    
+                    <div id="previewContainer">
+                        <div class="preview-card">
+                            <h3 id="previewTitle" class="text-2xl font-bold mb-4">제목을 입력하세요</h3>
+                            <div id="previewContent" class="text-white/90 leading-relaxed">
+                                <p>• 내용을 입력하세요</p>
+                                <p>• 최적의 구조와 디자인이 자동으로 선택됩니다</p>
+                                <p>• 전문가급 프레젠테이션을 경험해보세요</p>
+                            </div>
+                            
+                            <!-- Bottom accent bar -->
+                            <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/30"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide Navigation (Hidden by default) -->
+                    <div id="slideNavigation" class="hidden mt-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <button id="prevSlide" class="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
+                                ⬅️ 이전
+                            </button>
+                            <span id="slideCounter" class="text-white font-semibold">1 / 10</span>
+                            <button id="nextSlide" class="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
+                                ➡️ 다음
+                            </button>
+                        </div>
+                        
+                        <!-- Download Section -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="downloadPPT" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                                📥 PPT 다운로드
+                            </button>
+                            <button id="downloadJSON" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                                📋 JSON 백업
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <button id="downloadSimplePPT" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                                📄 단순 PPT (호환성)
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <button id="forceDownloadPPT" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                                💪 강제 다운로드 (최종)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Waitlist CTA -->
+        <div class="text-center mt-16 mb-8">
+            <div class="glass-card max-w-md mx-auto p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-white mb-2">💎 프리미엄 기능 출시 예정</h3>
+                <p class="text-white/80 text-sm mb-4">고급 템플릿, 다중 AI 모델, 브랜드 커스터마이징</p>
+                <a href="landing.html#waitlist" class="inline-block bg-white text-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-blue-50 transition-all duration-300">
+                    📧 출시 알림 받기
+                </a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 text-white/60">
+            <p class="text-lg font-semibold">SlideCraft Pro | Professional Presentation Builder</p>
+            <p class="text-sm mt-1">Crafted with care for professionals</p>
+        </footer>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

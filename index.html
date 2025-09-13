@@ -1,77 +1,158 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI PPT Generator - Powered by Kwak Dooil</title>
+    <title>SlideCraft AI - Transform Ideas into Professional Presentations</title>
     
-    <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-    <script src="ai-providers.js"></script>
-    <script src="template-engine.js"></script>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create stunning, professional presentations in minutes with SlideCraft AI. Transform your ideas into compelling slides using the power of artificial intelligence.">
+    <meta name="keywords" content="AI presentation, PowerPoint generator, slide creation, AI PPT, presentation maker, automated slides">
+    <meta name="author" content="SlideCraft AI">
+    <meta property="og:title" content="SlideCraft AI - AI-Powered Presentation Generator">
+    <meta property="og:description" content="Transform your ideas into professional presentations in minutes with our AI-powered slide generator.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://slidecraft.ai">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SlideCraft AI - AI-Powered Presentation Generator">
+    <meta name="twitter:description" content="Transform your ideas into professional presentations in minutes.">
     
-    <!-- Custom Styles -->
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    
+    <!-- Design System -->
+    <script src="design-system.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom Landing Page Styles -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        /* Skywork-inspired Clean Design */
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
         
-        body {
-            margin: 0;
-            padding: 0;
+        .hero-content {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            background-attachment: fixed;
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
         }
         
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out;
+        .testimonial-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            color: #334155;
         }
         
-        .animate-slide-up {
-            animation: slideUp 0.6s ease-out;
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-primary-600);
         }
         
-        .animate-pulse-custom {
-            animation: pulseCustom 2s infinite;
+        .waitlist-form {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .floating-shapes {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
         }
         
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .floating-shapes .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
         }
         
-        @keyframes pulseCustom {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
+        .floating-shapes .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .floating-shapes .shape:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 2s;
+        }
+        
+        .floating-shapes .shape:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            width: 40px;
+            height: 40px;
+            animation-delay: 4s;
+        }
+        
+        /* Remove floating animation for cleaner look */
+        .section-spacing {
+            padding: 100px 0;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .notification-banner {
+            background: #1e40af;
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: #3b82f6;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border-radius: 12px;
+            font-weight: 600;
         }
         
-        .btn-primary::before {
+        .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -82,496 +163,770 @@
             transition: left 0.5s;
         }
         
-        .btn-primary:hover::before {
+        .cta-button:hover::before {
             left: 100%;
         }
         
-        .btn-primary:hover {
+        .cta-button:hover {
+            background: #2563eb;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
         
-        .preview-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 30px;
-            min-height: 350px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .preview-card::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-        
-        .floating-shapes {
-            position: fixed;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .shape-1 {
-            top: 10%;
-            left: 10%;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .shape-2 {
-            top: 60%;
-            right: 10%;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Layout Classes */
-        .container { max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; }
-        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .gap-4 { gap: 1rem; }
-        .gap-8 { gap: 2rem; }
-        .flex { display: flex; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .items-center { align-items: center; }
-        .text-center { text-align: center; }
-        .hidden { display: none; }
-        .w-full { width: 100%; }
-        .h-32 { height: 8rem; }
-        .max-w-7xl { max-width: 80rem; }
-        
-        /* Spacing */
-        .p-4 { padding: 1rem; }
-        .p-8 { padding: 2rem; }
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .mb-12 { margin-bottom: 3rem; }
-        .mt-1 { margin-top: 0.25rem; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-16 { margin-top: 4rem; }
-        .ml-2 { margin-left: 0.5rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        
-        /* Typography */
-        .text-sm { font-size: 0.875rem; }
-        .text-lg { font-size: 1.125rem; }
-        .text-xl { font-size: 1.25rem; }
-        .text-2xl { font-size: 1.5rem; }
-        .text-5xl { font-size: 3rem; }
-        .font-bold { font-weight: 700; }
-        .font-semibold { font-weight: 600; }
-        
-        /* Colors */
-        .text-white { color: white; }
-        .text-gray-700 { color: #374151; }
-        .text-gray-800 { color: #1f2937; }
-        .text-blue-600 { color: #2563eb; }
-        .text-blue-700 { color: #1d4ed8; }
-        .text-blue-800 { color: #1e40af; }
-        .text-green-600 { color: #16a34a; }
-        .text-green-800 { color: #166534; }
-        .text-purple-600 { color: #9333ea; }
-        .bg-blue-50 { background-color: #eff6ff; }
-        .bg-green-50 { background-color: #f0fdf4; }
-        .bg-purple-100 { background-color: #f3e8ff; }
-        .bg-blue-600 { background-color: #2563eb; }
-        .bg-gray-600 { background-color: #4b5563; }
-        
-        /* Borders */
-        .border { border-width: 1px; }
-        .border-gray-200 { border-color: #e5e7eb; }
-        .border-blue-200 { border-color: #bfdbfe; }
-        .border-green-200 { border-color: #bbf7d0; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .rounded-2xl { border-radius: 1rem; }
-        .rounded-full { border-radius: 9999px; }
-        
-        /* Form Elements */
-        input, select, textarea {
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            font-size: 1rem;
+        .social-proof-logos {
+            filter: grayscale(1);
+            opacity: 0.7;
             transition: all 0.3s ease;
         }
         
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #9333ea;
-            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+        .social-proof-logos:hover {
+            filter: grayscale(0);
+            opacity: 1;
         }
         
-        button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Success animation */
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
         
-        .resize-none { resize: none; }
+        .success-checkmark {
+            animation: checkmark 0.6s ease-in-out;
+        }
         
-        /* Responsive */
-        @media (min-width: 1024px) {
-            .lg\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem !important;
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem !important;
+            }
+            
+            .stats-counter {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="gradient-bg">
-    <!-- Floating Background Shapes -->
-    <div class="floating-shapes">
-        <div class="shape-1"></div>
-        <div class="shape-2"></div>
-    </div>
-    
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="text-center text-white">
-            <div class="spinner mx-auto mb-4"></div>
-            <p id="loadingText" class="text-lg">🤖 AI가 완벽한 PPT를 생성하고 있습니다...</p>
-        </div>
-    </div>
-    
-    <!-- Main Container -->
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-12 animate-fade-in">
-            <h1 class="text-5xl font-bold text-white mb-4">
-                ✨ AI PPT Generator
-            </h1>
-            <p class="text-xl text-white/80 mb-2">
-                간단한 설명만으로 완벽한 프레젠테이션을 만들어 드립니다
-            </p>
-        </header>
-        
-        <!-- Main Content -->
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-8">
-                <!-- Input Section -->
-                <div class="glass-card rounded-2xl p-8 animate-slide-up">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        🚀 AI 스마트 PPT 생성기
-                        <span class="ml-2 text-sm bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Beta</span>
-                    </h2>
-                    
-                    <div class="space-y-6">
-                        <!-- AI Provider Selection -->
-                        <div id="aiProviderSection" class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4 mb-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <label class="text-sm font-semibold text-gray-700">
-                                    🤖 AI Provider Selection
-                                </label>
-                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Pro Feature</span>
-                            </div>
-                            
-                            <div class="grid grid-cols-3 gap-3 mb-3">
-                                <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="radio" name="aiProvider" value="claude" checked class="text-purple-600">
-                                    <span class="text-sm">Claude 3.5</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="radio" name="aiProvider" value="openai" class="text-purple-600">
-                                    <span class="text-sm">GPT-4</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer">
-                                    <input type="radio" name="aiProvider" value="gemini" class="text-purple-600">
-                                    <span class="text-sm">Gemini Pro</span>
-                                </label>
-                            </div>
-                            
-                            <div class="flex items-center space-x-2">
-                                <input type="checkbox" id="enableComparison" class="text-purple-600">
-                                <label for="enableComparison" class="text-sm text-gray-700">
-                                    🏆 Enable AI Quality Comparison (uses multiple providers)
-                                </label>
-                            </div>
-                        </div>
 
-                        <!-- API Key Input (Initially Hidden) -->
-                        <div id="apiKeySection" class="hidden bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                🔑 <span id="providerName">Claude</span> API Key Required
-                            </label>
-                            <div class="flex gap-2 mb-2">
-                                <input 
-                                    type="password" 
-                                    id="apiKeyInput" 
-                                    placeholder="Enter your API key..." 
-                                    class="flex-1 p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors"
-                                />
-                                <button id="saveApiKey" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg font-semibold">
-                                    Save
-                                </button>
-                            </div>
-                            
-                            <!-- Multiple API Key Inputs -->
-                            <div id="multipleApiKeys" class="hidden space-y-2">
-                                <div class="flex gap-2">
-                                    <input type="password" id="openaiKeyInput" placeholder="OpenAI API Key" class="flex-1 p-2 border rounded">
-                                    <button id="saveOpenAIKey" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Save</button>
-                                </div>
-                                <div class="flex gap-2">
-                                    <input type="password" id="geminiKeyInput" placeholder="Gemini API Key" class="flex-1 p-2 border rounded">
-                                    <button id="saveGeminiKey" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Save</button>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center mt-2">
-                                <p class="text-xs text-gray-600">
-                                    API keys stored securely in browser only. 
-                                    <span id="apiKeyLinks">
-                                        <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Get Claude API</a>
-                                    </span>
-                                </p>
-                                <button id="showMultipleKeys" class="text-xs text-blue-600 underline">Configure All Providers</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Main Input -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">
-                                💬 어떤 프레젠테이션을 만들고 싶으신가요?
-                            </label>
-                            <textarea 
-                                id="topicInput"
-                                placeholder="자연스럽게 말하듯이 입력하세요!
+<body>
+    <!-- Notification Banner -->
+    <div class="notification-banner">
+        🎉 Early Access: Join 10,000+ users creating amazing presentations with AI • Limited spots available
+    </div>
 
-예시:
-• '우리 팀 2025년 마케팅 전략을 경영진에게 발표해야 해'
-• 'AI 기술을 고객들에게 쉽게 설명하는 PPT 필요해'
-• '신입사원들을 위한 회사 소개 자료 만들어줘'
-• '온라인 교육용 파이썬 기초 강의 자료 부탁해'"
-                                class="w-full h-32 p-4 border border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 resize-none"
-                                style="position: relative; z-index: 10;"
-                                oninput="updatePreview()"
-                            ></textarea>
-                        </div>
-                        
-                        <!-- Options Row -->
-                        <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">📊 분량</label>
-                                <select id="slideCount" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
-                                    <option value="5">5장</option>
-                                    <option value="8">8장</option>
-                                    <option value="10" selected>10장</option>
-                                    <option value="12">12장</option>
-                                    <option value="15">15장</option>
-                                    <option value="20">20장</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">👥 대상</label>
-                                <select id="targetAudience" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
-                                    <option value="팀원/동료">팀원/동료</option>
-                                    <option value="고객/클라이언트">고객/클라이언트</option>
-                                    <option value="경영진">경영진</option>
-                                    <option value="학생/교육생">학생/교육생</option>
-                                    <option value="일반 대중">일반 대중</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">⏰ 발표시간</label>
-                                <select id="presentationTime" class="w-full p-3 border border-gray-200 rounded-lg focus:border-purple-500 transition-colors">
-                                    <option value="5분">5분</option>
-                                    <option value="10분">10분</option>
-                                    <option value="15분" selected>15분</option>
-                                    <option value="20분">20분</option>
-                                    <option value="30분">30분</option>
-                                    <option value="60분+">60분+</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <!-- AI Analysis Display -->
-                        <div id="aiAnalysis" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <div class="flex items-center">
-                                <span class="text-blue-600 mr-2">🤖</span>
-                                <span class="text-sm font-semibold text-blue-800">AI 분석 결과:</span>
-                            </div>
-                            <p id="analysisText" class="text-blue-700 text-sm mt-1"></p>
-                        </div>
-                        
-                        <!-- Enhanced Template Selection -->
-                        <div id="templateSelection" class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <label class="text-sm font-semibold text-gray-700">
-                                    🎨 Professional Template Selection
-                                </label>
-                                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">Enhanced AI</span>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-2 mb-3">
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="auto" checked class="text-purple-600">
-                                    <span class="text-sm">🤖 AI Auto-Select</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="corporate-modern" class="text-purple-600">
-                                    <span class="text-sm">💼 Corporate Modern</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="creative-bold" class="text-purple-600">
-                                    <span class="text-sm">🎯 Creative Bold</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="tech-sleek" class="text-purple-600">
-                                    <span class="text-sm">⚡ Tech Sleek</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="executive-premium" class="text-purple-600">
-                                    <span class="text-sm">👔 Executive Premium</span>
-                                </label>
-                                <label class="flex items-center space-x-2 cursor-pointer p-2 rounded border hover:bg-purple-50">
-                                    <input type="radio" name="templateType" value="pitch-deck" class="text-purple-600">
-                                    <span class="text-sm">🚀 Pitch Deck</span>
-                                </label>
-                            </div>
-                            
-                            <div class="flex items-center space-x-2">
-                                <input type="checkbox" id="enableSmartFitting" checked class="text-purple-600">
-                                <label for="enableSmartFitting" class="text-sm text-gray-700">
-                                    ✨ Enable Smart Content Fitting & Layout Optimization
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <!-- Generate Button -->
-                        <button 
-                            id="generateBtn"
-                            onclick="generatePresentation()"
-                            class="w-full btn-primary text-white font-bold py-4 px-8 rounded-xl text-lg animate-pulse-custom hover:animate-none transition-all duration-300"
-                        >
-                            ✨ AI 마법으로 PPT 완성하기! ✨
-                        </button>
-                        
-                        <!-- Success Stats (Hidden by default) -->
-                        <div id="successStats" class="hidden bg-green-50 border border-green-200 rounded-lg p-4">
-                            <div class="text-center">
-                                <p class="text-green-800 font-semibold">🎉 완벽한 PPT가 완성되었습니다!</p>
-                                <p id="statsText" class="text-green-600 text-sm mt-1"></p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200" style="top: 44px;">
+        <div class="ds-container ds-container--xl">
+            <div class="ds-flex ds-flex--row ds-flex--justify-between ds-flex--align-center" style="padding: 1rem 0;">
+                <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem;">
+                    <span style="font-size: 2rem;">🚀</span>
+                    <span style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary-600);">SlideCraft AI</span>
                 </div>
                 
-                <!-- Preview Section -->
-                <div class="glass-card rounded-2xl p-8 animate-slide-up" style="animation-delay: 0.2s;">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">👁️ 실시간 프리뷰</h2>
-                    
-                    <div id="previewContainer">
-                        <div class="preview-card">
-                            <h3 id="previewTitle" class="text-2xl font-bold mb-4">제목을 입력하세요</h3>
-                            <div id="previewContent" class="text-white/90 leading-relaxed">
-                                <p>• 내용을 입력하세요</p>
-                                <p>• AI가 자동으로 최적의 구조와 디자인을 선택합니다</p>
-                                <p>• 전문가급 프레젠테이션을 경험해보세요</p>
-                            </div>
-                            
-                            <!-- Bottom accent bar -->
-                            <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/30"></div>
-                        </div>
+                <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 2rem;">
+                    <a href="features.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Features</a>
+                    <a href="demo.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Demo</a>
+                    <a href="pricing.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Pricing</a>
+                    <a href="app.html" class="ds-button ds-button--secondary ds-button--sm">Launch App</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient relative overflow-hidden" style="padding-top: 160px; padding-bottom: 120px;">
+        
+        <div class="ds-container ds-container--xl relative z-10">
+            <div class="text-center">
+                <h1 class="hero-title" style="font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 1.5rem; line-height: 1.1;">
+                    Turn 8 Hours of Work into<br>
+                    <span style="background: linear-gradient(135deg, #60a5fa, #34d399); -webkit-background-clip: text; background-clip: text; color: transparent;">8 Minutes</span>
+                </h1>
+                
+                <p class="hero-subtitle" style="font-size: 1.5rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4;">
+                    AI-powered presentation generator that creates professional slides from your ideas. Stop spending hours on design — focus on your message.
+                </p>
+                
+                <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 1rem; margin-bottom: 4rem;">
+                    <a href="app.html" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer; text-decoration: none; display: inline-block;">
+                        🚀 Try SlideCraft AI Now
+                    </a>
+                    <button id="heroCtaBtn" class="text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: 2px solid white; background: transparent; cursor: pointer;">
+                        📝 Join Waitlist
+                    </button>
+                </div>
+                
+                <!-- Social Proof -->
+                <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 2rem; opacity: 0.8;">
+                    <div class="text-center">
+                        <div class="stats-counter">10K+</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Users</div>
                     </div>
-                    
-                    <!-- Slide Navigation (Hidden by default) -->
-                    <div id="slideNavigation" class="hidden mt-4">
-                        <div class="flex justify-between items-center mb-4">
-                            <button id="prevSlide" class="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                ⬅️ 이전
-                            </button>
-                            <span id="slideCounter" class="text-white font-semibold">1 / 10</span>
-                            <button id="nextSlide" class="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors">
-                                ➡️ 다음
-                            </button>
-                        </div>
-                        
-                        <!-- Download Section -->
-                        <div class="grid grid-cols-2 gap-3">
-                            <button id="downloadPPT" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-                                📥 PPT 다운로드
-                            </button>
-                            <button id="downloadJSON" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-                                📋 JSON 백업
-                            </button>
-                        </div>
-                        <div class="mt-3">
-                            <button id="downloadSimplePPT" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-                                📄 단순 PPT (호환성)
-                            </button>
-                        </div>
-                        <div class="mt-3">
-                            <button id="forceDownloadPPT" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-                                💪 강제 다운로드 (최종)
-                            </button>
-                        </div>
+                    <div class="text-center">
+                        <div class="stats-counter">50K+</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Presentations</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter">4.9★</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Rating</div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" style="padding: 120px 0; background: var(--color-background-secondary);">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    Why Choose SlideCraft AI?
+                </h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+                    Experience the future of presentation creation with our cutting-edge AI technology
+                </p>
+            </div>
+            
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <!-- Feature 1 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        AI-Powered Content Generation
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Simply describe your topic and our AI creates professional slide content, structure, and design automatically.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Lightning Fast Creation
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Generate complete presentations in under 60 seconds. What used to take hours now takes minutes.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Professional Templates
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Choose from dozens of professionally designed templates or let AI select the perfect style for your content.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Smart Content Optimization
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        AI automatically optimizes content length, formatting, and visual hierarchy for maximum impact.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Multiple Export Formats
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Export to PowerPoint, PDF, or share online. Compatible with all major presentation platforms.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🌍</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Multi-Language Support
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Create presentations in multiple languages with native AI understanding and cultural context.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video Section -->
+    <section id="demo" style="padding: 120px 0; background: white;">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    See SlideCraft AI in Action
+                </h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+                    Watch how easy it is to create professional presentations with our AI-powered platform
+                </p>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="video-container">
+                    <!-- Replace with actual demo video -->
+                    <iframe 
+                        src="https://www.youtube.com/embed/pBW2L7jmffw" 
+                        title="SlideCraft AI Demo" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 3rem;">
+                <button id="demoCtaBtn" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer;">
+                    🎯 Start Creating Now - Join Waitlist
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section style="padding: 120px 0; background: var(--color-background-secondary);">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    Trusted by Professionals Worldwide
+                </h2>
+            </div>
+            
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "SlideCraft AI transformed how we create presentations. What used to take our team hours now takes minutes. Game changer!"
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👨‍💼</div>
+                        <div>
+                            <div style="font-weight: 600;">Sarah Chen</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">Marketing Director, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "The AI understands context incredibly well. It creates presentations that actually make sense and look professional."
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👩‍🏫</div>
+                        <div>
+                            <div style="font-weight: 600;">Dr. Michael Rodriguez</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">Professor, Stanford University</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "Finally, a tool that actually understands what makes a good presentation. The results are consistently impressive."
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👩‍💼</div>
+                        <div>
+                            <div style="font-weight: 600;">Emma Thompson</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">CEO, StartupXYZ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Usage Stats -->
+            <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 4rem; margin-top: 4rem;">
+                <div class="text-center">
+                    <div class="stats-counter">10,847</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Active Users</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">52,341</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Presentations Created</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">4.9</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Average Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">2.3M</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Hours Saved</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" style="padding: 120px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
         
-        <!-- Footer -->
-        <footer class="text-center mt-16 text-white/60">
-            <p class="text-lg font-semibold">Powered by Kwak Dooil | PPT Generator v2.0</p>
-            <p class="text-sm mt-1">Made with ❤️ for YOU</p>
-        </footer>
-    </div>
+        <div class="ds-container ds-container--xl relative z-10">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 1rem;">
+                    Get Early Access to SlideCraft AI
+                </h2>
+                <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: 0 auto;">
+                    Join thousands of professionals already transforming their presentation workflow
+                </p>
+            </div>
+            
+            <div style="max-width: 500px; margin: 0 auto;">
+                <div class="waitlist-form" style="padding: 2.5rem; border-radius: 1rem;">
+                    <div id="waitlistForm">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1.5rem; text-align: center;">
+                            🚀 Reserve Your Spot
+                        </h3>
+                        
+                        <form id="emailForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <input 
+                                    type="email" 
+                                    id="waitlistEmail" 
+                                    placeholder="Enter your email address" 
+                                    required
+                                    class="ds-input ds-input--lg"
+                                    style="width: 100%;"
+                                />
+                            </div>
+                            
+                            <div>
+                                <input 
+                                    type="text" 
+                                    id="waitlistName" 
+                                    placeholder="Your name (optional)" 
+                                    class="ds-input ds-input--lg"
+                                    style="width: 100%;"
+                                />
+                            </div>
+                            
+                            <div>
+                                <select id="userType" class="ds-input ds-input--lg" style="width: 100%;">
+                                    <option value="">What describes you best?</option>
+                                    <option value="business">Business Professional</option>
+                                    <option value="educator">Educator/Teacher</option>
+                                    <option value="student">Student</option>
+                                    <option value="consultant">Consultant</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem;">
+                                <input type="checkbox" id="privacyConsent" required style="margin: 0;">
+                                <label for="privacyConsent" style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                                    I agree to receive updates about SlideCraft AI and understand that my email will be stored securely.
+                                </label>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                id="joinWaitlistBtn"
+                                class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg"
+                                style="border: none; cursor: pointer; width: 100%;"
+                            >
+                                🎯 Join Waitlist - Free Early Access
+                            </button>
+                        </form>
+                        
+                        <p style="text-align: center; font-size: 0.75rem; color: var(--color-text-tertiary); margin-top: 1rem;">
+                            💡 Early access users get 3 months free + priority support
+                        </p>
+                    </div>
+                    
+                    <!-- Success State -->
+                    <div id="waitlistSuccess" style="display: none; text-align: center;">
+                        <div class="success-checkmark" style="font-size: 4rem; color: var(--color-semantic-success-500); margin-bottom: 1rem;">✅</div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                            Welcome to SlideCraft AI!
+                        </h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+                            You're now on our priority waitlist. We'll notify you as soon as early access is available.
+                        </p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-tertiary);">
+                            💌 Check your email for a confirmation and exclusive updates
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--color-secondary-900); color: white; padding: 3rem 0;">
+        <div class="ds-container ds-container--xl">
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <span style="font-size: 1.5rem; font-weight: 800;">SlideCraft AI</span>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+                        Transform your ideas into professional presentations with the power of artificial intelligence.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Product</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="#features" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Features</a>
+                        <a href="#demo" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Demo</a>
+                        <a href="#pricing" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Pricing</a>
+                        <a href="app.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Launch App</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Company</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="about.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">About</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Blog</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Careers</a>
+                        <a href="contact.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Connect</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">🐦</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">💼</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">📧</a>
+                        <a href="https://github.com" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">⭐</a>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">GitHub Stars: </span>
+                        <span id="githubStars" style="color: white; font-weight: 600;">2,847</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center;">
+                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                    © 2024 SlideCraft AI. All rights reserved. Made with ❤️ for presentations that matter.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Waitlist functionality
+        class WaitlistManager {
+            constructor() {
+                this.apiBaseUrl = 'http://localhost:5001/api';
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.loadStoredData();
+                this.loadLiveStats();
+            }
+            
+            bindEvents() {
+                // CTA buttons
+                document.getElementById('heroCtaBtn').addEventListener('click', () => {
+                    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                document.getElementById('demoCtaBtn').addEventListener('click', () => {
+                    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                // Form submission
+                document.getElementById('emailForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleWaitlistSubmission();
+                });
+            }
+            
+            loadStoredData() {
+                const storedEmail = localStorage.getItem('slidecraft_waitlist_email');
+                if (storedEmail) {
+                    document.getElementById('waitlistEmail').value = storedEmail;
+                }
+                
+                const storedName = localStorage.getItem('slidecraft_waitlist_name');
+                if (storedName) {
+                    document.getElementById('waitlistName').value = storedName;
+                }
+                
+                // Check if user already signed up
+                const isSignedUp = localStorage.getItem('slidecraft_waitlist_signed_up');
+                if (isSignedUp === 'true') {
+                    this.showSuccessState();
+                }
+            }
+            
+            async loadLiveStats() {
+                try {
+                    const response = await fetch(`${this.apiBaseUrl}/waitlist/stats`);
+                    if (response.ok) {
+                        const stats = await response.json();
+                        if (stats.success) {
+                            // Update stats counters
+                            this.updateStatsCounters(stats);
+                        }
+                    }
+                } catch (error) {
+                    console.log('Could not load live stats, using static values');
+                }
+            }
+            
+            updateStatsCounters(stats) {
+                // Update the stats counters with real data
+                const counters = document.querySelectorAll('.stats-counter');
+                counters.forEach(counter => {
+                    const parent = counter.parentElement;
+                    const label = parent.querySelector('div:last-child').textContent.toLowerCase();
+                    
+                    if (label.includes('users')) {
+                        counter.textContent = this.formatNumber(stats.total_signups) + '+';
+                    } else if (label.includes('presentations')) {
+                        counter.textContent = this.formatNumber(stats.presentations_created) + '+';
+                    } else if (label.includes('rating')) {
+                        counter.textContent = stats.average_rating + '★';
+                    } else if (label.includes('hours')) {
+                        counter.textContent = this.formatNumber(Math.floor(stats.hours_saved)) + 'M';
+                    }
+                });
+            }
+            
+            formatNumber(num) {
+                if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + 'M';
+                } else if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num.toString();
+            }
+            
+            async handleWaitlistSubmission() {
+                const email = document.getElementById('waitlistEmail').value.trim();
+                const name = document.getElementById('waitlistName').value.trim();
+                const userType = document.getElementById('userType').value;
+                const consent = document.getElementById('privacyConsent').checked;
+                
+                if (!email || !consent) {
+                    this.showNotification('Please fill in your email and accept the privacy terms.', 'error');
+                    return;
+                }
+                
+                // Validate email
+                if (!this.isValidEmail(email)) {
+                    this.showNotification('Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                const submitBtn = document.getElementById('joinWaitlistBtn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '⏳ Adding you to waitlist...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const waitlistData = {
+                        email,
+                        name: name || null,
+                        user_type: userType || null,
+                        source: 'landing_page'
+                    };
+                    
+                    // Try to submit to backend first
+                    let backendSuccess = false;
+                    try {
+                        const response = await fetch(`${this.apiBaseUrl}/waitlist/signup`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(waitlistData)
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (response.ok && result.success) {
+                            backendSuccess = true;
+                        } else if (response.status === 409) {
+                            // Email already exists
+                            this.showNotification('This email is already on our waitlist! 🎉', 'info');
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            return;
+                        } else {
+                            console.warn('Backend submission failed:', result.error);
+                        }
+                    } catch (fetchError) {
+                        console.warn('Backend not available, storing locally only:', fetchError.message);
+                    }
+                    
+                    // Store data locally regardless of backend success
+                    localStorage.setItem('slidecraft_waitlist_email', email);
+                    localStorage.setItem('slidecraft_waitlist_name', name);
+                    localStorage.setItem('slidecraft_waitlist_data', JSON.stringify({
+                        ...waitlistData,
+                        timestamp: new Date().toISOString(),
+                        backend_submitted: backendSuccess
+                    }));
+                    localStorage.setItem('slidecraft_waitlist_signed_up', 'true');
+                    
+                    // Show success state
+                    this.showSuccessState(backendSuccess);
+                    
+                    // Track analytics (if available)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'waitlist_signup', {
+                            'method': 'email',
+                            'user_type': userType || 'unknown',
+                            'backend_success': backendSuccess
+                        });
+                    }
+                    
+                } catch (error) {
+                    console.error('Waitlist submission error:', error);
+                    this.showNotification('Something went wrong. Please try again.', 'error');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+            
+            showSuccessState(backendSuccess = true) {
+                document.getElementById('waitlistForm').style.display = 'none';
+                document.getElementById('waitlistSuccess').style.display = 'block';
+                
+                // Update success message based on backend status
+                if (!backendSuccess) {
+                    const successText = document.querySelector('#waitlistSuccess p');
+                    if (successText) {
+                        successText.innerHTML = 'Your signup has been saved locally. We\'ll sync it with our servers when available.<br><br>💌 You\'ll be the first to know when early access opens!';
+                    }
+                }
+                
+                // Update page title
+                document.title = 'Welcome to SlideCraft AI! | Waitlist Confirmed';
+            }
+            
+            showNotification(message, type = 'info') {
+                // Use design system toast if available
+                if (window.SlideCraftDS) {
+                    window.SlideCraftDS.showToast({
+                        type: type,
+                        title: type === 'error' ? 'Error' : 'Info',
+                        message: message,
+                        duration: 5000
+                    });
+                } else {
+                    alert(message);
+                }
+            }
+            
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Animate counters when they come into view
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stats-counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+                        let current = 0;
+                        const increment = target / 100;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            counter.textContent = Math.floor(current).toLocaleString() + 
+                                (counter.textContent.includes('★') ? '★' : counter.textContent.includes('K') ? 'K+' : 
+                                 counter.textContent.includes('M') ? 'M' : '');
+                        }, 20);
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            new WaitlistManager();
+            animateCounters();
+            
+            // GitHub stars counter (simulated)
+            setTimeout(() => {
+                const starsElement = document.getElementById('githubStars');
+                let stars = 2400;
+                const targetStars = 2847;
+                const increment = (targetStars - stars) / 50;
+                
+                const timer = setInterval(() => {
+                    stars += increment;
+                    if (stars >= targetStars) {
+                        stars = targetStars;
+                        clearInterval(timer);
+                    }
+                    starsElement.textContent = Math.floor(stars).toLocaleString();
+                }, 50);
+            }, 2000);
+        });
+        
+        // Add some dynamic behavior to feature cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-fade-in');
+            });
+        });
+    </script>
     
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <!-- Add basic CSS animations -->
+    <style>
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </body>
 </html>

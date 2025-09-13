@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - SlideCraft AI</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .story-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .story-section h2 {
+            color: #1e40af;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .story-section p {
+            color: #374151;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .team-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .founder-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 30px auto;
+        }
+        
+        .founder-avatar {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .founder-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .founder-title {
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        .founder-bio {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="container">
+            <div class="nav">
+                <a href="index.html" class="logo">🚀 SlideCraft AI</a>
+                <ul class="nav-links">
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="app.html" style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px;">Launch App</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Our Story</h1>
+                <p>Transforming how professionals create presentations through the power of artificial intelligence.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="content-section">
+                <div class="story-section">
+                    <h2>🎯 Our Mission</h2>
+                    <p>We believe that creating professional presentations shouldn't take hours of your valuable time. Every day, millions of professionals struggle with slide design, content organization, and formatting - time that could be better spent on what matters most: their ideas and message.</p>
+                    
+                    <p>SlideCraft AI was born from this frustration. We set out to build a tool that combines the power of cutting-edge AI with intuitive design to help professionals transform their ideas into compelling presentations in minutes, not hours.</p>
+
+                    <h2>🚀 Our Vision</h2>
+                    <p>We envision a world where anyone can create presentation-quality content without being a design expert. Where business professionals, educators, and entrepreneurs can focus on their ideas while AI handles the design complexities.</p>
+
+                    <p>By democratizing access to professional presentation design, we're empowering people to communicate their ideas more effectively and persuasively.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">GitHub Stars</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Presentations Created</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">120+</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">99%</div>
+                            <div class="stat-label">User Satisfaction</div>
+                        </div>
+                    </div>
+
+                    <h2>💡 Our Approach</h2>
+                    <p>We believe in transparency, open source development, and putting users first. Our technology stack is built on:</p>
+                    <ul style="color: #374151; line-height: 1.8;">
+                        <li><strong>Multi-LLM Architecture:</strong> We don't lock you into one AI provider. Choose from Claude, GPT-4, or Gemini Pro.</li>
+                        <li><strong>Privacy-First Design:</strong> All processing happens in your browser. Your content never leaves your device.</li>
+                        <li><strong>Open Source Foundation:</strong> Our core technology is available on GitHub for transparency and community contribution.</li>
+                        <li><strong>Professional Quality:</strong> Every template and design element is crafted by professional designers.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="team-section">
+                <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Meet Our Founder</h2>
+                
+                <div class="founder-card">
+                    <div class="founder-avatar">👨‍💻</div>
+                    <div class="founder-name">Daniel Kwak</div>
+                    <div class="founder-title">Founder & Lead Developer</div>
+                    <div class="founder-bio">
+                        Passionate about AI and its potential to transform how we work. With years of experience in software development and a deep understanding of presentation design, Daniel created SlideCraft AI to solve a problem he faced daily: spending too much time on slide design instead of content.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 SlideCraft AI. Built with ❤️ for professionals worldwide.</p>
+        </div>
+    </footer>
+</body>
+</html>
