@@ -215,6 +215,98 @@
             color: rgba(255, 255, 255, 0.8);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                line-height: 1.4;
+                padding: 0 1rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+            
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .plan-name {
+                font-size: 1.25rem;
+            }
+            
+            .plan-price {
+                font-size: 2.5rem;
+            }
+            
+            .features-list li {
+                font-size: 0.9rem;
+            }
+            
+            .cta-button {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .faq-section {
+                padding: 2rem 1.5rem;
+                margin: 2rem 1rem;
+            }
+            
+            .faq-section h2 {
+                font-size: 2rem;
+            }
+            
+            .faq-question {
+                font-size: 1.1rem;
+            }
+            
+            .faq-answer {
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .pricing-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .plan-price {
+                font-size: 2rem;
+            }
+            
+            .faq-section {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>

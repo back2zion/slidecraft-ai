@@ -197,17 +197,137 @@
         
         /* Responsive design */
         @media (max-width: 768px) {
+            /* Navigation mobile optimization */
+            .ds-container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            /* Hide desktop navigation on mobile, show hamburger */
+            .nav-desktop {
+                display: none !important;
+            }
+            
+            .nav-mobile-toggle {
+                display: block !important;
+            }
+            
+            /* Hero section mobile */
             .hero-title {
-                font-size: 2.5rem !important;
-                line-height: 1.1;
+                font-size: 2.2rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 1rem !important;
+                padding: 0 1rem;
             }
             
             .hero-subtitle {
+                font-size: 1.1rem !important;
+                line-height: 1.4 !important;
+                padding: 0 1rem;
+                margin-bottom: 2rem !important;
+            }
+            
+            /* Stats counter */
+            .stats-counter {
+                font-size: 1.8rem !important;
+            }
+            
+            /* Feature cards mobile */
+            .feature-card {
+                margin-bottom: 1.5rem;
+                padding: 1.5rem !important;
+            }
+            
+            .feature-card h3 {
                 font-size: 1.25rem !important;
             }
             
-            .stats-counter {
-                font-size: 2rem;
+            .feature-card p {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Waitlist form mobile */
+            .waitlist-form {
+                padding: 1.5rem !important;
+                margin: 0 1rem;
+            }
+            
+            .waitlist-form h3 {
+                font-size: 1.5rem !important;
+            }
+            
+            .waitlist-form p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Button mobile */
+            .cta-button {
+                width: 100% !important;
+                padding: 1rem 1.5rem !important;
+                font-size: 1rem !important;
+                margin-top: 1rem;
+            }
+            
+            /* Testimonial mobile */
+            .testimonial-card {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem;
+            }
+            
+            .testimonial-card p {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Hide floating shapes on mobile */
+            .floating-shapes {
+                display: none;
+            }
+            
+            /* Sections padding */
+            section {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            /* Grid mobile */
+            .grid-cols-2, .grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small mobile devices */
+            .hero-title {
+                font-size: 1.8rem !important;
+                padding: 0 0.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem !important;
+                padding: 0 0.5rem;
+            }
+            
+            .notification-banner {
+                font-size: 0.85rem !important;
+                padding: 0.5rem !important;
+            }
+            
+            .ds-container {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+            
+            .waitlist-form {
+                margin: 0 0.5rem;
+                padding: 1rem !important;
+            }
+            
+            .feature-card {
+                padding: 1rem !important;
             }
         }
     </style>
@@ -228,11 +348,29 @@
                     <span style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary-600);">SlideCraft AI</span>
                 </div>
                 
-                <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 2rem;">
+                <!-- Desktop Navigation -->
+                <div class="nav-desktop ds-flex ds-flex--row ds-flex--align-center" style="gap: 2rem;">
                     <a href="features.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Features</a>
                     <a href="demo.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Demo</a>
                     <a href="pricing.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Pricing</a>
                     <a href="app.html" class="ds-button ds-button--secondary ds-button--sm">Launch App</a>
+                </div>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="nav-mobile-toggle" onclick="toggleMobileNav()" style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--color-text-primary); cursor: pointer;">
+                    ☰
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileNavMenu" class="mobile-nav-menu" style="display: none; background: white; border-top: 1px solid #e5e7eb; padding: 1rem 0;">
+                <div class="ds-container ds-container--xl">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="features.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Features</a>
+                        <a href="demo.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Demo</a>
+                        <a href="pricing.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Pricing</a>
+                        <a href="app.html" style="color: var(--color-primary-600); text-decoration: none; font-weight: 600; padding: 0.75rem 0;">🚀 Launch App</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -928,5 +1066,42 @@
             }
         }
     </style>
+    
+    <script>
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobileNavMenu');
+            const toggle = document.querySelector('.nav-mobile-toggle');
+            
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+                toggle.innerHTML = '✕';
+            } else {
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        }
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileNavMenu');
+            const toggle = document.querySelector('.nav-mobile-toggle');
+            
+            if (!event.target.closest('nav') && menu.style.display === 'block') {
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        });
+        
+        // Close mobile nav on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const menu = document.getElementById('mobileNavMenu');
+                const toggle = document.querySelector('.nav-mobile-toggle');
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        });
+    </script>
 </body>
 </html>

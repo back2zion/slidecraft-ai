@@ -265,6 +265,116 @@
         
         .resize-none { resize: none; }
         
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem !important;
+            }
+            
+            /* Hero section mobile */
+            .text-5xl {
+                font-size: 2.5rem !important;
+                line-height: 1.1 !important;
+            }
+            
+            .text-xl {
+                font-size: 1.125rem !important;
+                line-height: 1.4 !important;
+            }
+            
+            /* Grid layout mobile */
+            .lg\\:grid-cols-2,
+            .grid-cols-2,
+            .grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            /* Glass cards mobile */
+            .glass-card {
+                padding: 1.5rem !important;
+                margin-bottom: 2rem;
+            }
+            
+            /* Form elements mobile */
+            .text-2xl {
+                font-size: 1.5rem !important;
+            }
+            
+            /* Textarea mobile */
+            .h-32 {
+                height: 6rem !important;
+            }
+            
+            /* Buttons mobile */
+            .btn-primary {
+                padding: 1rem 1.5rem !important;
+                font-size: 1rem !important;
+            }
+            
+            /* Preview section mobile */
+            .preview-card {
+                padding: 1.5rem !important;
+                min-height: 250px !important;
+            }
+            
+            /* Navigation buttons mobile */
+            #slideNavigation .grid-cols-2 {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem !important;
+            }
+            
+            #slideNavigation button {
+                padding: 0.75rem 1rem !important;
+                font-size: 0.9rem !important;
+            }
+            
+            /* Waitlist CTA mobile */
+            .max-w-md {
+                margin: 0 1rem !important;
+            }
+            
+            /* Language switcher mobile */
+            #language-switcher {
+                top: 10px !important;
+                right: 10px !important;
+                padding: 3px !important;
+            }
+            
+            #language-switcher button {
+                padding: 6px 8px !important;
+                font-size: 12px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .text-5xl {
+                font-size: 2rem !important;
+            }
+            
+            .text-xl {
+                font-size: 1rem !important;
+            }
+            
+            .glass-card {
+                padding: 1rem !important;
+            }
+            
+            .preview-card {
+                padding: 1rem !important;
+                min-height: 200px !important;
+            }
+            
+            .container {
+                padding: 0 0.5rem !important;
+            }
+            
+            .py-8 {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+        }
+        
         /* Responsive */
         @media (min-width: 1024px) {
             .lg\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }

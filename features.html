@@ -150,6 +150,77 @@
             color: rgba(255, 255, 255, 0.8);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                line-height: 1.4;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 0;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.25rem;
+            }
+            
+            .feature-card p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .cta-section {
+                padding: 2rem 1.5rem;
+                margin: 2rem 1rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-section p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .cta-section {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
