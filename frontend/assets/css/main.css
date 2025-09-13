@@ -444,27 +444,35 @@ body {
   background-attachment: fixed;
 }
 
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
+.hero-title,
+h1.hero-title,
+.hero-title * {
+  font-size: 3.5rem !important;
+  font-weight: 800 !important;
   color: #ffffff !important;
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.1 !important;
   text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
-  position: relative;
-  z-index: 100;
+  position: relative !important;
+  z-index: 100 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-.hero-subtitle {
-  font-size: 1.5rem;
+.hero-subtitle,
+p.hero-subtitle,
+.hero-subtitle * {
+  font-size: 1.5rem !important;
   color: #ffffff !important;
-  max-width: 800px;
-  margin: 0 auto 3rem;
+  max-width: 800px !important;
+  margin: 0 auto 3rem !important;
   text-shadow: 0 8px 16px rgba(0, 0, 0, 1), 0 4px 8px rgba(0, 0, 0, 1) !important;
-  position: relative;
-  z-index: 100;
+  position: relative !important;
+  z-index: 100 !important;
   font-weight: 600 !important;
-  line-height: 1.4;
+  line-height: 1.4 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Feature Cards Enhanced */

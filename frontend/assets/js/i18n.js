@@ -245,9 +245,16 @@ class I18nSystem {
         // Set HTML lang attribute
         document.documentElement.lang = this.currentLanguage;
         
-        // Apply initial translations
-        this.applyTranslations();
-        this.setupLanguageSwitcher();
+        // Apply translations when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.applyTranslations();
+                this.setupLanguageSwitcher();
+            });
+        } else {
+            this.applyTranslations();
+            this.setupLanguageSwitcher();
+        }
         
         // Show welcome message in detected language
         const welcomeMsg = this.currentLanguage === 'ko' 
@@ -442,17 +449,8 @@ class I18nSystem {
     }
 }
 
-// Global instance
-let i18n;
-
-// Initialize when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        i18n = new I18nSystem();
-    });
-} else {
-    i18n = new I18nSystem();
-}
+// Global instance - Initialize immediately
+let i18n = new I18nSystem();
 
 // Export for use in other scripts
 if (typeof window !== 'undefined') {
