@@ -304,28 +304,12 @@ class I18nSystem {
     
     // 개선된 translate 메서드 - 매개변수 보간 지원
     translate(key, params = {}) {
-        const keys = key.split('.');
-        let translation = this.translations[this.currentLanguage];
-        
-        for (const k of keys) {
-            if (translation && typeof translation === 'object') {
-                translation = translation[k];
-            } else {
-                break;
-            }
-        }
-        
+        // 직접 키로 접근 (평면 구조)
+        let translation = this.translations[this.currentLanguage]?.[key];
+
         // Fallback to English if translation not found
         if (!translation && this.currentLanguage !== 'en') {
-            let fallback = this.translations.en;
-            for (const k of keys) {
-                if (fallback && typeof fallback === 'object') {
-                    fallback = fallback[k];
-                } else {
-                    break;
-                }
-            }
-            translation = fallback;
+            translation = this.translations.en?.[key];
         }
         
         // 매개변수 보간 처리
