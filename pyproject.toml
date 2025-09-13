@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ai-ppt-generator"
+version = "1.0.0"
+description = "AI-powered PPT Generator using Claude API and Streamlit"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "*.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+streamlit = "^1.29.0"
+python-pptx = "^0.6.23"
+anthropic = "^0.39.0"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+app = "streamlit run app.py"

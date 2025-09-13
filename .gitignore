@@ -1,0 +1,36 @@
+# Environment variables and API Keys
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.key
+*secret*
+*api-key*
+
+# Node modules
+node_modules/
+npm-debug.log*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+temp/
