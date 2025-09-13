@@ -398,63 +398,31 @@ class I18nSystem {
         });
     }
     
-    // 개선된 언어 스위처
+    // 개선된 언어 스위처 - CSS 클래스 사용
     setupLanguageSwitcher() {
         if (!document.getElementById('language-switcher')) {
             const switcher = document.createElement('div');
             switcher.id = 'language-switcher';
-            switcher.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 1000;
-                display: flex;
-                gap: 5px;
-                background: rgba(255, 255, 255, 0.9);
-                backdrop-filter: blur(10px);
-                border-radius: 20px;
-                padding: 5px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            `;
-            
+
             // Korean button
             const koBtn = document.createElement('button');
             koBtn.innerHTML = this.translate('lang.switch.korean');
             koBtn.title = this.translate('lang.korean');
-            koBtn.style.cssText = `
-                border: none;
-                background: ${this.currentLanguage === 'ko' ? '#3b82f6' : 'transparent'};
-                color: ${this.currentLanguage === 'ko' ? 'white' : '#6b7280'};
-                padding: 8px 12px;
-                border-radius: 15px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: all 0.3s ease;
-                white-space: nowrap;
-            `;
+            koBtn.className = this.currentLanguage === 'ko' ? 'active' : '';
             koBtn.onclick = () => this.setLanguage('ko');
-            
+
             // English button
             const enBtn = document.createElement('button');
             enBtn.innerHTML = this.translate('lang.switch.english');
             enBtn.title = this.translate('lang.english');
-            enBtn.style.cssText = `
-                border: none;
-                background: ${this.currentLanguage === 'en' ? '#3b82f6' : 'transparent'};
-                color: ${this.currentLanguage === 'en' ? 'white' : '#6b7280'};
-                padding: 8px 12px;
-                border-radius: 15px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: all 0.3s ease;
-                white-space: nowrap;
-            `;
+            enBtn.className = this.currentLanguage === 'en' ? 'active' : '';
             enBtn.onclick = () => this.setLanguage('en');
-            
+
             switcher.appendChild(koBtn);
             switcher.appendChild(enBtn);
             document.body.appendChild(switcher);
+
+            console.log('🌐 Language switcher created and added to DOM');
         }
     }
     
@@ -462,21 +430,21 @@ class I18nSystem {
         const switcher = document.getElementById('language-switcher');
         if (switcher) {
             const buttons = switcher.querySelectorAll('button');
-            
-            // 버튼 텍스트 업데이트
+
+            // 버튼 텍스트 및 active 클래스 업데이트
             if (buttons[0]) {
                 buttons[0].innerHTML = this.translate('lang.switch.korean');
                 buttons[0].title = this.translate('lang.korean');
-                buttons[0].style.background = this.currentLanguage === 'ko' ? '#3b82f6' : 'transparent';
-                buttons[0].style.color = this.currentLanguage === 'ko' ? 'white' : '#6b7280';
+                buttons[0].className = this.currentLanguage === 'ko' ? 'active' : '';
             }
-            
+
             if (buttons[1]) {
                 buttons[1].innerHTML = this.translate('lang.switch.english');
                 buttons[1].title = this.translate('lang.english');
-                buttons[1].style.background = this.currentLanguage === 'en' ? '#3b82f6' : 'transparent';
-                buttons[1].style.color = this.currentLanguage === 'en' ? 'white' : '#6b7280';
+                buttons[1].className = this.currentLanguage === 'en' ? 'active' : '';
             }
+
+            console.log(`🔄 Language switcher updated for: ${this.currentLanguage}`);
         }
     }
     
