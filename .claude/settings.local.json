@@ -22,7 +22,11 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(sed:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(git push:*)",
+      "Bash(for file in features.html pricing.html demo.html about.html contact.html)",
+      "Bash(do sed -i '/<title>/a\\    \\n    <!-- Main Stylesheet -->\\n    <link rel=\"\"stylesheet\"\" href=\"\"../assets/css/main.css\"\">' \"$file\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": [],
