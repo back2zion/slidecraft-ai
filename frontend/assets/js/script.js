@@ -1210,15 +1210,21 @@ function saveGeminiKey() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 SlideCraft AI - Multi-LLM Version Initialized');
     
-    // Ensure i18n is initialized and apply translations
-    setTimeout(() => {
+    // Ensure i18n is initialized and apply translations with retry mechanism
+    function tryApplyTranslations(attempts = 0) {
         if (typeof i18n !== 'undefined' && i18n && typeof i18n.applyTranslations === 'function') {
             i18n.applyTranslations();
             console.log('🌐 다국어 번역 적용 완료');
+        } else if (attempts < 10) {
+            // Retry up to 10 times with increasing delay
+            setTimeout(() => tryApplyTranslations(attempts + 1), 100 * (attempts + 1));
         } else {
-            console.warn('⚠️ i18n 시스템이 준비되지 않았습니다');
+            console.warn('⚠️ i18n 시스템 초기화 실패 - 최대 재시도 횟수 초과');
         }
-    }, 200);
+    }
+    
+    // Start translation application immediately
+    tryApplyTranslations();
     
     // Initialize AI providers
     initializeAIProviders();
