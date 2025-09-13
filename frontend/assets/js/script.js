@@ -1121,6 +1121,7 @@ function checkApiKey() {
 function updateApiKeyUI(provider) {
     const providerName = document.getElementById('providerName');
     const apiKeyLinks = document.getElementById('apiKeyLinks');
+    const apiKeyInput = document.getElementById('apiKeyInput');
     
     const providerInfo = {
         'claude': {
@@ -1146,17 +1147,26 @@ function updateApiKeyUI(provider) {
     };
     
     const info = providerInfo[provider];
-    providerName.textContent = info.name;
-    document.getElementById('apiKeyInput').placeholder = info.placeholder;
     
-    if (provider === 'multiple') {
-        apiKeyLinks.innerHTML = `
-            <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Claude</a> | 
-            <a href="https://platform.openai.com/api-keys" target="_blank" class="text-green-600 underline">OpenAI</a> | 
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 underline">Gemini</a>
-        `;
-    } else {
-        apiKeyLinks.innerHTML = `<a href="${info.url}" target="_blank" class="text-purple-600 underline">Get ${info.name} API</a>`;
+    // 안전한 요소 접근
+    if (providerName) {
+        providerName.textContent = info.name;
+    }
+    
+    if (apiKeyInput) {
+        apiKeyInput.placeholder = info.placeholder;
+    }
+    
+    if (apiKeyLinks) {
+        if (provider === 'multiple') {
+            apiKeyLinks.innerHTML = `
+                <a href="https://console.anthropic.com/" target="_blank" class="text-purple-600 underline">Claude</a> | 
+                <a href="https://platform.openai.com/api-keys" target="_blank" class="text-green-600 underline">OpenAI</a> | 
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 underline">Gemini</a>
+            `;
+        } else {
+            apiKeyLinks.innerHTML = `<a href="${info.url}" target="_blank" class="text-purple-600 underline">Get ${info.name} API</a>`;
+        }
     }
 }
 
