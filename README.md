@@ -43,7 +43,7 @@ A complete SaaS platform for creating professional PowerPoint presentations usin
 
 ### Online Usage (Recommended)
 **🌐 Website**: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)** - Complete website with features, demo, and pricing
-**🚀 Direct App**: **[Launch App 🔗](https://back2zion.github.io/slidecraft-ai/app.html)** - Jump straight to the presentation generator
+**🚀 Direct App**: **[Launch App 🔗](https://back2zion.github.io/slidecraft-ai/frontend/pages/app.html)** - Jump straight to the presentation generator
 
 ### Local Development
 
@@ -57,7 +57,7 @@ cd slidecraft-ai
 uv sync
 
 # 3. Run proxy server (for CORS resolution)
-uv run python server.py
+uv run python backend/api/server.py
 
 # 4. Or simple file server
 python -m http.server 8000
@@ -99,14 +99,34 @@ python -m http.server 8000
 ### Project Structure
 ```
 slidecraft-ai/
-├── index.html          # 🎨 Main web application
-├── script.js           # ⚡ JavaScript logic & AI integration
-├── server.py           # 🔧 CORS proxy server (optional)
-├── pyproject.toml      # 🚀 UV project configuration
-├── uv.lock            # 🔒 Dependency lock file
-├── .env.example       # 🔑 Environment variables example
-├── README.md          # 📖 Project documentation
-└── .venv/             # 🐍 Virtual environment (auto-created by UV)
+├── 📁 frontend/                    # Frontend (GitHub Pages)
+│   ├── 📁 pages/                   # HTML pages
+│   │   ├── index.html              # 🎨 Landing page  
+│   │   ├── app.html               # 🚀 Main application
+│   │   ├── features.html
+│   │   ├── pricing.html
+│   │   └── demo.html
+│   ├── 📁 assets/js/               # JavaScript files
+│   │   ├── script.js              # ⚡ Main application logic
+│   │   ├── ai-providers.js        # 🤖 Multi-LLM integration
+│   │   ├── template-engine.js     # 🎨 Template system
+│   │   ├── design-system.js       # 🎨 Component library
+│   │   └── i18n.js               # 🌐 Internationalization
+│   └── 📁 admin/                   # Admin dashboard
+├── 📁 backend/                     # Backend services
+│   ├── 📁 api/                     # API servers
+│   │   ├── server.py              # 🔧 CORS proxy server
+│   │   └── waitlist-server.py     # 📧 Waitlist API
+│   ├── 📁 config/                  # Configuration
+│   │   └── email-config.py        # 📧 Email settings
+│   └── 📁 database/                # Data storage
+├── 📁 config/                      # Project configuration
+│   ├── pyproject.toml             # 🚀 UV configuration
+│   └── uv.lock                    # 🔒 Dependency lock
+├── 📁 docs/                        # Documentation
+│   ├── CLAUDE.md                  # 🤖 Development guide
+│   └── EMAIL_SETUP.md             # 📧 Email setup
+└── README.md                       # 📖 Main documentation
 ```
 
 ### API Key Security

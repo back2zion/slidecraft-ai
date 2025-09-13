@@ -51,18 +51,18 @@ uv run --group waitlist waitlist-server.py
 ### Core Components
 
 1. **Frontend (Static Files)**:
-   - `index.html` - Main AI PPT generator application
-   - `landing.html` - Marketing landing page with waitlist
-   - `admin.html` - Waitlist management dashboard
-   - `script.js` - Main application logic
-   - `ai-providers.js` - Multi-LLM integration
-   - `template-engine.js` - Advanced template system
-   - `design-system.js` - Component library
-   - `i18n.js` - Internationalization system
+   - `frontend/pages/index.html` - Landing page
+   - `frontend/pages/app.html` - Main AI PPT generator application  
+   - `frontend/admin/admin.html` - Waitlist management dashboard
+   - `frontend/assets/js/script.js` - Main application logic
+   - `frontend/assets/js/ai-providers.js` - Multi-LLM integration
+   - `frontend/assets/js/template-engine.js` - Advanced template system
+   - `frontend/assets/js/design-system.js` - Component library
+   - `frontend/assets/js/i18n.js` - Internationalization system
 
 2. **Backend Servers**:
-   - `server.py` - Main app CORS proxy server (port 8000)
-   - `waitlist-server.py` - Waitlist API with email (port 5001)
+   - `backend/api/server.py` - Main app CORS proxy server (port 8000)
+   - `backend/api/waitlist-server.py` - Waitlist API with email (port 5001)
 
 3. **AI Integration**:
    - Multi-LLM support (Claude, OpenAI, Gemini)
@@ -70,7 +70,7 @@ uv run --group waitlist waitlist-server.py
    - Smart template selection
 
 4. **Email System**:
-   - `email-config.py` - SMTP email sending
+   - `backend/config/email-config.py` - SMTP email sending
    - Welcome emails for waitlist signups
    - Admin notifications
    - HTML email templates
@@ -98,16 +98,17 @@ cd slidecraft-ai
 uv sync --group waitlist
 
 # Start both servers
-uv run start-servers.py
+uv run backend/scripts/start-servers.py
 # OR manually:
-uv run server.py                                    # Main app (port 8000)
-uv run --group waitlist waitlist-server.py         # Waitlist API (port 5001)
+uv run backend/api/server.py                                    # Main app (port 8000)
+uv run --group waitlist backend/api/waitlist-server.py         # Waitlist API (port 5001)
 ```
 
 ### Access Points
-- **Main App**: http://localhost:8000/
-- **Landing Page**: http://localhost:8000/landing.html  
-- **Admin Dashboard**: http://localhost:8000/admin.html
+- **Main App**: http://localhost:8000/frontend/pages/
+- **Landing Page**: http://localhost:8000/frontend/pages/index.html  
+- **App**: http://localhost:8000/frontend/pages/app.html
+- **Admin Dashboard**: http://localhost:8000/frontend/admin/admin.html
 - **Health Check**: http://localhost:5001/health
 
 ### Email Configuration

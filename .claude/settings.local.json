@@ -18,7 +18,9 @@
       "Bash(node:*)",
       "Bash(curl:*)",
       "Bash(uv run:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)"
     ],
     "deny": [],
     "ask": [],

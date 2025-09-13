@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideCraft AI - Transform Ideas into Professional Presentations</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create stunning, professional presentations in minutes with SlideCraft AI. Transform your ideas into compelling slides using the power of artificial intelligence.">
+    <meta name="keywords" content="AI presentation, PowerPoint generator, slide creation, AI PPT, presentation maker, automated slides">
+    <meta name="author" content="SlideCraft AI">
+    <meta property="og:title" content="SlideCraft AI - AI-Powered Presentation Generator">
+    <meta property="og:description" content="Transform your ideas into professional presentations in minutes with our AI-powered slide generator.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://slidecraft.ai">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SlideCraft AI - AI-Powered Presentation Generator">
+    <meta name="twitter:description" content="Transform your ideas into professional presentations in minutes.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    
+    <!-- Design System -->
+    <script src="../assets/js/design-system.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom Landing Page Styles -->
+    <style>
+        /* Skywork-inspired Clean Design */
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        
+        .hero-content {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
+        }
+        
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
+        }
+        
+        .testimonial-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            color: #334155;
+        }
+        
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-primary-600);
+        }
+        
+        .waitlist-form {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-shapes .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-shapes .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+        
+        .floating-shapes .shape:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 2s;
+        }
+        
+        .floating-shapes .shape:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            width: 40px;
+            height: 40px;
+            animation-delay: 4s;
+        }
+        
+        /* Remove floating animation for cleaner look */
+        .section-spacing {
+            padding: 100px 0;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .notification-banner {
+            background: #1e40af;
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: #3b82f6;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .social-proof-logos {
+            filter: grayscale(1);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .social-proof-logos:hover {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        
+        /* Success animation */
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .success-checkmark {
+            animation: checkmark 0.6s ease-in-out;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            /* Navigation mobile optimization */
+            .ds-container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            /* Hide desktop navigation on mobile, show hamburger */
+            .nav-desktop {
+                display: none !important;
+            }
+            
+            .nav-mobile-toggle {
+                display: block !important;
+            }
+            
+            /* Hero section mobile */
+            .hero-title {
+                font-size: 2.2rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 1rem !important;
+                padding: 0 1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem !important;
+                line-height: 1.4 !important;
+                padding: 0 1rem;
+                margin-bottom: 2rem !important;
+            }
+            
+            /* Stats counter */
+            .stats-counter {
+                font-size: 1.8rem !important;
+            }
+            
+            /* Feature cards mobile */
+            .feature-card {
+                margin-bottom: 1.5rem;
+                padding: 1.5rem !important;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.25rem !important;
+            }
+            
+            .feature-card p {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Waitlist form mobile */
+            .waitlist-form {
+                padding: 1.5rem !important;
+                margin: 0 1rem;
+            }
+            
+            .waitlist-form h3 {
+                font-size: 1.5rem !important;
+            }
+            
+            .waitlist-form p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Button mobile */
+            .cta-button {
+                width: 100% !important;
+                padding: 1rem 1.5rem !important;
+                font-size: 1rem !important;
+                margin-top: 1rem;
+            }
+            
+            /* Testimonial mobile */
+            .testimonial-card {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem;
+            }
+            
+            .testimonial-card p {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Hide floating shapes on mobile */
+            .floating-shapes {
+                display: none;
+            }
+            
+            /* Sections padding */
+            section {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            /* Grid mobile */
+            .grid-cols-2, .grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small mobile devices */
+            .hero-title {
+                font-size: 1.8rem !important;
+                padding: 0 0.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem !important;
+                padding: 0 0.5rem;
+            }
+            
+            .notification-banner {
+                font-size: 0.85rem !important;
+                padding: 0.5rem !important;
+            }
+            
+            .ds-container {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+            
+            .waitlist-form {
+                margin: 0 0.5rem;
+                padding: 1rem !important;
+            }
+            
+            .feature-card {
+                padding: 1rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Notification Banner -->
+    <div class="notification-banner">
+        🎉 Early Access: Join 10,000+ users creating amazing presentations with AI • Limited spots available
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200" style="top: 44px;">
+        <div class="ds-container ds-container--xl">
+            <div class="ds-flex ds-flex--row ds-flex--justify-between ds-flex--align-center" style="padding: 1rem 0;">
+                <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem;">
+                    <span style="font-size: 2rem;">🚀</span>
+                    <span style="font-size: 1.5rem; font-weight: 800; color: var(--color-primary-600);">SlideCraft AI</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="nav-desktop ds-flex ds-flex--row ds-flex--align-center" style="gap: 2rem;">
+                    <a href="features.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Features</a>
+                    <a href="demo.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Demo</a>
+                    <a href="pricing.html" style="color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">Pricing</a>
+                    <a href="app.html" class="ds-button ds-button--secondary ds-button--sm">Launch App</a>
+                </div>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="nav-mobile-toggle" onclick="toggleMobileNav()" style="display: none; background: none; border: none; font-size: 1.5rem; color: var(--color-text-primary); cursor: pointer;">
+                    ☰
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileNavMenu" class="mobile-nav-menu" style="display: none; background: white; border-top: 1px solid #e5e7eb; padding: 1rem 0;">
+                <div class="ds-container ds-container--xl">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="features.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Features</a>
+                        <a href="demo.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Demo</a>
+                        <a href="pricing.html" style="color: var(--color-text-primary); text-decoration: none; font-weight: 500; padding: 0.75rem 0; border-bottom: 1px solid #f3f4f6;">Pricing</a>
+                        <a href="app.html" style="color: var(--color-primary-600); text-decoration: none; font-weight: 600; padding: 0.75rem 0;">🚀 Launch App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient relative overflow-hidden" style="padding-top: 160px; padding-bottom: 120px;">
+        
+        <div class="ds-container ds-container--xl relative z-10">
+            <div class="text-center">
+                <h1 class="hero-title" style="font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 1.5rem; line-height: 1.1;">
+                    Turn 8 Hours of Work into<br>
+                    <span style="background: linear-gradient(135deg, #60a5fa, #34d399); -webkit-background-clip: text; background-clip: text; color: transparent;">8 Minutes</span>
+                </h1>
+                
+                <p class="hero-subtitle" style="font-size: 1.5rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4;">
+                    AI-powered presentation generator that creates professional slides from your ideas. Stop spending hours on design — focus on your message.
+                </p>
+                
+                <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 1rem; margin-bottom: 4rem;">
+                    <a href="app.html" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer; text-decoration: none; display: inline-block;">
+                        🚀 Try SlideCraft AI Now
+                    </a>
+                    <button id="heroCtaBtn" class="text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: 2px solid white; background: transparent; cursor: pointer;">
+                        📝 Join Waitlist
+                    </button>
+                </div>
+                
+                <!-- Social Proof -->
+                <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 2rem; opacity: 0.8;">
+                    <div class="text-center">
+                        <div class="stats-counter">10K+</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Users</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter">50K+</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Presentations</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter">4.9★</div>
+                        <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" style="padding: 120px 0; background: var(--color-background-secondary);">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    Why Choose SlideCraft AI?
+                </h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+                    Experience the future of presentation creation with our cutting-edge AI technology
+                </p>
+            </div>
+            
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <!-- Feature 1 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        AI-Powered Content Generation
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Simply describe your topic and our AI creates professional slide content, structure, and design automatically.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Lightning Fast Creation
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Generate complete presentations in under 60 seconds. What used to take hours now takes minutes.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Professional Templates
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Choose from dozens of professionally designed templates or let AI select the perfect style for your content.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔄</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Smart Content Optimization
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        AI automatically optimizes content length, formatting, and visual hierarchy for maximum impact.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Multiple Export Formats
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Export to PowerPoint, PDF, or share online. Compatible with all major presentation platforms.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🌍</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                        Multi-Language Support
+                    </h3>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        Create presentations in multiple languages with native AI understanding and cultural context.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video Section -->
+    <section id="demo" style="padding: 120px 0; background: white;">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    See SlideCraft AI in Action
+                </h2>
+                <p style="font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+                    Watch how easy it is to create professional presentations with our AI-powered platform
+                </p>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="video-container">
+                    <!-- Replace with actual demo video -->
+                    <iframe 
+                        src="https://www.youtube.com/embed/pBW2L7jmffw" 
+                        title="SlideCraft AI Demo" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 3rem;">
+                <button id="demoCtaBtn" class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg" style="border: none; cursor: pointer;">
+                    🎯 Start Creating Now - Join Waitlist
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section style="padding: 120px 0; background: var(--color-background-secondary);">
+        <div class="ds-container ds-container--xl">
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1rem;">
+                    Trusted by Professionals Worldwide
+                </h2>
+            </div>
+            
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "SlideCraft AI transformed how we create presentations. What used to take our team hours now takes minutes. Game changer!"
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👨‍💼</div>
+                        <div>
+                            <div style="font-weight: 600;">Sarah Chen</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">Marketing Director, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "The AI understands context incredibly well. It creates presentations that actually make sense and look professional."
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👩‍🏫</div>
+                        <div>
+                            <div style="font-weight: 600;">Dr. Michael Rodriguez</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">Professor, Stanford University</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card" style="padding: 2rem; border-radius: 1rem;">
+                    <div style="margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.95;">
+                        "Finally, a tool that actually understands what makes a good presentation. The results are consistently impressive."
+                    </p>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 1rem;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👩‍💼</div>
+                        <div>
+                            <div style="font-weight: 600;">Emma Thompson</div>
+                            <div style="opacity: 0.8; font-size: 0.9rem;">CEO, StartupXYZ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Usage Stats -->
+            <div class="ds-flex ds-flex--row ds-flex--justify-center ds-flex--align-center" style="gap: 4rem; margin-top: 4rem;">
+                <div class="text-center">
+                    <div class="stats-counter">10,847</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Active Users</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">52,341</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Presentations Created</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">4.9</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Average Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-counter">2.3M</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.9rem;">Hours Saved</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" style="padding: 120px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
+        
+        <div class="ds-container ds-container--xl relative z-10">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 1rem;">
+                    Get Early Access to SlideCraft AI
+                </h2>
+                <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: 0 auto;">
+                    Join thousands of professionals already transforming their presentation workflow
+                </p>
+            </div>
+            
+            <div style="max-width: 500px; margin: 0 auto;">
+                <div class="waitlist-form" style="padding: 2.5rem; border-radius: 1rem;">
+                    <div id="waitlistForm">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1.5rem; text-align: center;">
+                            🚀 Reserve Your Spot
+                        </h3>
+                        
+                        <form id="emailForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <input 
+                                    type="email" 
+                                    id="waitlistEmail" 
+                                    placeholder="Enter your email address" 
+                                    required
+                                    class="ds-input ds-input--lg"
+                                    style="width: 100%;"
+                                />
+                            </div>
+                            
+                            <div>
+                                <input 
+                                    type="text" 
+                                    id="waitlistName" 
+                                    placeholder="Your name (optional)" 
+                                    class="ds-input ds-input--lg"
+                                    style="width: 100%;"
+                                />
+                            </div>
+                            
+                            <div>
+                                <select id="userType" class="ds-input ds-input--lg" style="width: 100%;">
+                                    <option value="">What describes you best?</option>
+                                    <option value="business">Business Professional</option>
+                                    <option value="educator">Educator/Teacher</option>
+                                    <option value="student">Student</option>
+                                    <option value="consultant">Consultant</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem;">
+                                <input type="checkbox" id="privacyConsent" required style="margin: 0;">
+                                <label for="privacyConsent" style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                                    I agree to receive updates about SlideCraft AI and understand that my email will be stored securely.
+                                </label>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                id="joinWaitlistBtn"
+                                class="cta-button text-white font-bold py-4 px-8 rounded-xl text-lg"
+                                style="border: none; cursor: pointer; width: 100%;"
+                            >
+                                🎯 Join Waitlist - Free Early Access
+                            </button>
+                        </form>
+                        
+                        <p style="text-align: center; font-size: 0.75rem; color: var(--color-text-tertiary); margin-top: 1rem;">
+                            💡 Early access users get 3 months free + priority support
+                        </p>
+                    </div>
+                    
+                    <!-- Success State -->
+                    <div id="waitlistSuccess" style="display: none; text-align: center;">
+                        <div class="success-checkmark" style="font-size: 4rem; color: var(--color-semantic-success-500); margin-bottom: 1rem;">✅</div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
+                            Welcome to SlideCraft AI!
+                        </h3>
+                        <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+                            You're now on our priority waitlist. We'll notify you as soon as early access is available.
+                        </p>
+                        <p style="font-size: 0.875rem; color: var(--color-text-tertiary);">
+                            💌 Check your email for a confirmation and exclusive updates
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--color-secondary-900); color: white; padding: 3rem 0;">
+        <div class="ds-container ds-container--xl">
+            <div class="ds-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <div class="ds-flex ds-flex--row ds-flex--align-center" style="gap: 0.5rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <span style="font-size: 1.5rem; font-weight: 800;">SlideCraft AI</span>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+                        Transform your ideas into professional presentations with the power of artificial intelligence.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Product</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="#features" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Features</a>
+                        <a href="#demo" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Demo</a>
+                        <a href="#pricing" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Pricing</a>
+                        <a href="app.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Launch App</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Company</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="about.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">About</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Blog</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Careers</a>
+                        <a href="contact.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Connect</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">🐦</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">💼</a>
+                        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">📧</a>
+                        <a href="https://github.com" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 1.5rem;">⭐</a>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">GitHub Stars: </span>
+                        <span id="githubStars" style="color: white; font-weight: 600;">2,847</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center;">
+                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                    © 2024 SlideCraft AI. All rights reserved. Made with ❤️ for presentations that matter.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Waitlist functionality
+        class WaitlistManager {
+            constructor() {
+                this.apiBaseUrl = 'http://localhost:5001/api';
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.loadStoredData();
+                this.loadLiveStats();
+            }
+            
+            bindEvents() {
+                // CTA buttons
+                document.getElementById('heroCtaBtn').addEventListener('click', () => {
+                    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                document.getElementById('demoCtaBtn').addEventListener('click', () => {
+                    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                // Form submission
+                document.getElementById('emailForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleWaitlistSubmission();
+                });
+            }
+            
+            loadStoredData() {
+                const storedEmail = localStorage.getItem('slidecraft_waitlist_email');
+                if (storedEmail) {
+                    document.getElementById('waitlistEmail').value = storedEmail;
+                }
+                
+                const storedName = localStorage.getItem('slidecraft_waitlist_name');
+                if (storedName) {
+                    document.getElementById('waitlistName').value = storedName;
+                }
+                
+                // Check if user already signed up
+                const isSignedUp = localStorage.getItem('slidecraft_waitlist_signed_up');
+                if (isSignedUp === 'true') {
+                    this.showSuccessState();
+                }
+            }
+            
+            async loadLiveStats() {
+                try {
+                    const response = await fetch(`${this.apiBaseUrl}/waitlist/stats`);
+                    if (response.ok) {
+                        const stats = await response.json();
+                        if (stats.success) {
+                            // Update stats counters
+                            this.updateStatsCounters(stats);
+                        }
+                    }
+                } catch (error) {
+                    console.log('Could not load live stats, using static values');
+                }
+            }
+            
+            updateStatsCounters(stats) {
+                // Update the stats counters with real data
+                const counters = document.querySelectorAll('.stats-counter');
+                counters.forEach(counter => {
+                    const parent = counter.parentElement;
+                    const label = parent.querySelector('div:last-child').textContent.toLowerCase();
+                    
+                    if (label.includes('users')) {
+                        counter.textContent = this.formatNumber(stats.total_signups) + '+';
+                    } else if (label.includes('presentations')) {
+                        counter.textContent = this.formatNumber(stats.presentations_created) + '+';
+                    } else if (label.includes('rating')) {
+                        counter.textContent = stats.average_rating + '★';
+                    } else if (label.includes('hours')) {
+                        counter.textContent = this.formatNumber(Math.floor(stats.hours_saved)) + 'M';
+                    }
+                });
+            }
+            
+            formatNumber(num) {
+                if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + 'M';
+                } else if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num.toString();
+            }
+            
+            async handleWaitlistSubmission() {
+                const email = document.getElementById('waitlistEmail').value.trim();
+                const name = document.getElementById('waitlistName').value.trim();
+                const userType = document.getElementById('userType').value;
+                const consent = document.getElementById('privacyConsent').checked;
+                
+                if (!email || !consent) {
+                    this.showNotification('Please fill in your email and accept the privacy terms.', 'error');
+                    return;
+                }
+                
+                // Validate email
+                if (!this.isValidEmail(email)) {
+                    this.showNotification('Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                const submitBtn = document.getElementById('joinWaitlistBtn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '⏳ Adding you to waitlist...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const waitlistData = {
+                        email,
+                        name: name || null,
+                        user_type: userType || null,
+                        source: 'landing_page'
+                    };
+                    
+                    // Try to submit to backend first
+                    let backendSuccess = false;
+                    try {
+                        const response = await fetch(`${this.apiBaseUrl}/waitlist/signup`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(waitlistData)
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (response.ok && result.success) {
+                            backendSuccess = true;
+                        } else if (response.status === 409) {
+                            // Email already exists
+                            this.showNotification('This email is already on our waitlist! 🎉', 'info');
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            return;
+                        } else {
+                            console.warn('Backend submission failed:', result.error);
+                        }
+                    } catch (fetchError) {
+                        console.warn('Backend not available, storing locally only:', fetchError.message);
+                    }
+                    
+                    // Store data locally regardless of backend success
+                    localStorage.setItem('slidecraft_waitlist_email', email);
+                    localStorage.setItem('slidecraft_waitlist_name', name);
+                    localStorage.setItem('slidecraft_waitlist_data', JSON.stringify({
+                        ...waitlistData,
+                        timestamp: new Date().toISOString(),
+                        backend_submitted: backendSuccess
+                    }));
+                    localStorage.setItem('slidecraft_waitlist_signed_up', 'true');
+                    
+                    // Show success state
+                    this.showSuccessState(backendSuccess);
+                    
+                    // Track analytics (if available)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'waitlist_signup', {
+                            'method': 'email',
+                            'user_type': userType || 'unknown',
+                            'backend_success': backendSuccess
+                        });
+                    }
+                    
+                } catch (error) {
+                    console.error('Waitlist submission error:', error);
+                    this.showNotification('Something went wrong. Please try again.', 'error');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+            
+            showSuccessState(backendSuccess = true) {
+                document.getElementById('waitlistForm').style.display = 'none';
+                document.getElementById('waitlistSuccess').style.display = 'block';
+                
+                // Update success message based on backend status
+                if (!backendSuccess) {
+                    const successText = document.querySelector('#waitlistSuccess p');
+                    if (successText) {
+                        successText.innerHTML = 'Your signup has been saved locally. We\'ll sync it with our servers when available.<br><br>💌 You\'ll be the first to know when early access opens!';
+                    }
+                }
+                
+                // Update page title
+                document.title = 'Welcome to SlideCraft AI! | Waitlist Confirmed';
+            }
+            
+            showNotification(message, type = 'info') {
+                // Use design system toast if available
+                if (window.SlideCraftDS) {
+                    window.SlideCraftDS.showToast({
+                        type: type,
+                        title: type === 'error' ? 'Error' : 'Info',
+                        message: message,
+                        duration: 5000
+                    });
+                } else {
+                    alert(message);
+                }
+            }
+            
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Animate counters when they come into view
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stats-counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+                        let current = 0;
+                        const increment = target / 100;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            counter.textContent = Math.floor(current).toLocaleString() + 
+                                (counter.textContent.includes('★') ? '★' : counter.textContent.includes('K') ? 'K+' : 
+                                 counter.textContent.includes('M') ? 'M' : '');
+                        }, 20);
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            new WaitlistManager();
+            animateCounters();
+            
+            // GitHub stars counter (simulated)
+            setTimeout(() => {
+                const starsElement = document.getElementById('githubStars');
+                let stars = 2400;
+                const targetStars = 2847;
+                const increment = (targetStars - stars) / 50;
+                
+                const timer = setInterval(() => {
+                    stars += increment;
+                    if (stars >= targetStars) {
+                        stars = targetStars;
+                        clearInterval(timer);
+                    }
+                    starsElement.textContent = Math.floor(stars).toLocaleString();
+                }, 50);
+            }, 2000);
+        });
+        
+        // Add some dynamic behavior to feature cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-fade-in');
+            });
+        });
+    </script>
+    
+    <!-- Add basic CSS animations -->
+    <style>
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+    <script>
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobileNavMenu');
+            const toggle = document.querySelector('.nav-mobile-toggle');
+            
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+                toggle.innerHTML = '✕';
+            } else {
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        }
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileNavMenu');
+            const toggle = document.querySelector('.nav-mobile-toggle');
+            
+            if (!event.target.closest('nav') && menu.style.display === 'block') {
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        });
+        
+        // Close mobile nav on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const menu = document.getElementById('mobileNavMenu');
+                const toggle = document.querySelector('.nav-mobile-toggle');
+                menu.style.display = 'none';
+                toggle.innerHTML = '☰';
+            }
+        });
+    </script>
+</body>
+</html>
