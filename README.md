@@ -36,12 +36,12 @@ Claude AI를 활용하여 자연어 입력만으로 전문적인 PowerPoint 프�
 ## 🚀 사용 방법
 
 ### 온라인 사용 (권장)
-GitHub Pages에서 바로 사용하세요: **[AI PPT Generator 🔗](https://github.com/your-username/ai-ppt-generator)**
+GitHub Pages에서 바로 사용하세요: **[SlideCraft AI 🔗](https://back2zion.github.io/slidecraft-ai/)**
 
 ### 로컬 실행
 ```bash
-git clone https://github.com/your-username/ai-ppt-generator.git
-cd ai-ppt-generator/web
+git clone https://github.com/back2zion/slidecraft-ai.git
+cd slidecraft-ai
 python -m http.server 8000
 # 브라우저에서 http://localhost:8000 접속
 ```
@@ -102,7 +102,7 @@ MIT License - 자세한 내용은 `LICENSE` 파일을 참조하세요.
 ## 👨‍💻 제작자
 
 **Kwak Dooil**
-- GitHub: [@your-username](https://github.com/your-username)
+- Email: [babel.ai.dub@gmail.com](mailto:babel.ai.dub@gmail.com)
 
 ## 🙏 감사의 말
 
