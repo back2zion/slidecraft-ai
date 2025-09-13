@@ -1,9 +1,9 @@
 /**
- * SlideCraft AI Internationalization System
- * Supports Korean and English with automatic browser language detection
+ * SlideCraft AI Internationalization System - FIXED VERSION
+ * 배열 타입 번역 키 처리 문제 해결
  */
 
-// Language translations
+// 수정된 번역 객체 - 배열을 개별 키로 분리
 const translations = {
     ko: {
         // Navigation & Header
@@ -90,13 +90,12 @@ const translations = {
         'status.topic.required': '주제를 입력해주세요.',
         'status.beta': 'Beta',
         
-        // Help & Instructions
+        // Help & Instructions - 배열을 개별 키로 수정
         'help.title': '사용 방법',
-        'help.steps': [
-            '• 내용을 입력하세요',
-            '• 최적의 구조와 디자인이 자동으로 선택됩니다',
-            '• 전문가급 프레젠테이션을 경험해보세요'
-        ],
+        'help.step1': '• 내용을 입력하세요',
+        'help.step2': '• 최적의 구조와 디자인이 자동으로 선택됩니다',
+        'help.step3': '• 전문가급 프레젠테이션을 경험해보세요',
+        'help.all': '• 내용을 입력하세요<br>• 최적의 구조와 디자인이 자동으로 선택됩니다<br>• 전문가급 프레젠테이션을 경험해보세요',
         
         // Waitlist CTA
         'waitlist.title': '💎 프리미엄 기능 출시 예정',
@@ -107,9 +106,11 @@ const translations = {
         'footer.title': 'SlideCraft Pro | Professional Presentation Builder',
         'footer.subtitle': 'Crafted with care for professionals',
         
-        // Language Switcher
+        // Language Switcher - 추가된 번역
         'lang.korean': '한국어',
-        'lang.english': 'English'
+        'lang.english': 'English',
+        'lang.switch.korean': '🇰🇷 한국어',
+        'lang.switch.english': '🇺🇸 English'
     },
     
     en: {
@@ -197,13 +198,12 @@ Examples:
         'status.topic.required': 'Please enter a topic.',
         'status.beta': 'Beta',
         
-        // Help & Instructions
+        // Help & Instructions - 배열을 개별 키로 수정
         'help.title': 'How to Use',
-        'help.steps': [
-            '• Enter your content',
-            '• Optimal structure and design will be automatically selected',
-            '• Experience professional-grade presentations'
-        ],
+        'help.step1': '• Enter your content',
+        'help.step2': '• Optimal structure and design will be automatically selected',
+        'help.step3': '• Experience professional-grade presentations',
+        'help.all': '• Enter your content<br>• Optimal structure and design will be automatically selected<br>• Experience professional-grade presentations',
         
         // Waitlist CTA
         'waitlist.title': '💎 Premium Features Coming Soon',
@@ -214,9 +214,11 @@ Examples:
         'footer.title': 'SlideCraft Pro | Professional Presentation Builder',
         'footer.subtitle': 'Crafted with care for professionals',
         
-        // Language Switcher
+        // Language Switcher - 추가된 번역
         'lang.korean': '한국어',
-        'lang.english': 'English'
+        'lang.english': 'English',
+        'lang.switch.korean': '🇰🇷 한국어',
+        'lang.switch.english': '🇺🇸 English'
     }
 };
 
@@ -300,7 +302,8 @@ class I18nSystem {
         console.log(`✅ Final detected language: ${this.currentLanguage}`);
     }
     
-    translate(key) {
+    // 개선된 translate 메서드 - 매개변수 보간 지원
+    translate(key, params = {}) {
         const keys = key.split('.');
         let translation = this.translations[this.currentLanguage];
         
@@ -325,6 +328,13 @@ class I18nSystem {
             translation = fallback;
         }
         
+        // 매개변수 보간 처리
+        if (typeof translation === 'string' && Object.keys(params).length > 0) {
+            translation = translation.replace(/\{\{(\w+)\}\}/g, (match, param) => {
+                return params[param] || match;
+            });
+        }
+        
         return translation || key;
     }
     
@@ -342,35 +352,54 @@ class I18nSystem {
         }
     }
     
+    // 개선된 applyTranslations 메서드 - 더 많은 요소 타입 지원
     applyTranslations() {
-        // Find all elements with data-i18n attribute
         const elements = document.querySelectorAll('[data-i18n]');
         
         elements.forEach(element => {
             const key = element.getAttribute('data-i18n');
             const translation = this.translate(key);
             
-            // Handle different element types
-            if (element.tagName === 'INPUT' && element.type === 'text') {
-                element.placeholder = translation;
+            // 요소 타입별 처리
+            if (element.tagName === 'INPUT') {
+                if (element.type === 'text' || element.type === 'email' || element.type === 'password') {
+                    element.placeholder = translation;
+                } else if (element.type === 'button' || element.type === 'submit') {
+                    element.value = translation;
+                }
             } else if (element.tagName === 'TEXTAREA') {
                 element.placeholder = translation;
             } else if (element.tagName === 'OPTION') {
                 element.textContent = translation;
-            } else {
+            } else if (element.tagName === 'BUTTON') {
+                // 버튼 내부에 다른 요소가 있는지 확인
+                if (element.children.length === 0) {
+                    element.textContent = translation;
+                } else {
+                    // span이나 다른 텍스트 노드만 교체
+                    const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === Node.TEXT_NODE);
+                    if (textNodes.length > 0) {
+                        textNodes[0].textContent = translation;
+                    }
+                }
+            } else if (element.tagName === 'META' && element.name) {
+                element.content = translation;
+            } else if (element.tagName === 'TITLE') {
                 element.textContent = translation;
+                document.title = translation;
+            } else {
+                // HTML이 포함된 번역의 경우 innerHTML 사용
+                if (translation && translation.includes('<br>') || translation.includes('<')) {
+                    element.innerHTML = translation;
+                } else {
+                    element.textContent = translation;
+                }
             }
         });
-        
-        // Update page title
-        const titleKey = document.querySelector('title')?.getAttribute('data-i18n');
-        if (titleKey) {
-            document.title = this.translate(titleKey);
-        }
     }
     
+    // 개선된 언어 스위처
     setupLanguageSwitcher() {
-        // Create language switcher if it doesn't exist
         if (!document.getElementById('language-switcher')) {
             const switcher = document.createElement('div');
             switcher.id = 'language-switcher';
@@ -386,12 +415,13 @@ class I18nSystem {
                 border-radius: 20px;
                 padding: 5px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             `;
             
             // Korean button
             const koBtn = document.createElement('button');
-            koBtn.textContent = '🇰🇷';
-            koBtn.title = '한국어';
+            koBtn.innerHTML = this.translate('lang.switch.korean');
+            koBtn.title = this.translate('lang.korean');
             koBtn.style.cssText = `
                 border: none;
                 background: ${this.currentLanguage === 'ko' ? '#3b82f6' : 'transparent'};
@@ -401,13 +431,14 @@ class I18nSystem {
                 cursor: pointer;
                 font-size: 14px;
                 transition: all 0.3s ease;
+                white-space: nowrap;
             `;
             koBtn.onclick = () => this.setLanguage('ko');
             
             // English button
             const enBtn = document.createElement('button');
-            enBtn.textContent = '🇺🇸';
-            enBtn.title = 'English';
+            enBtn.innerHTML = this.translate('lang.switch.english');
+            enBtn.title = this.translate('lang.english');
             enBtn.style.cssText = `
                 border: none;
                 background: ${this.currentLanguage === 'en' ? '#3b82f6' : 'transparent'};
@@ -417,6 +448,7 @@ class I18nSystem {
                 cursor: pointer;
                 font-size: 14px;
                 transition: all 0.3s ease;
+                white-space: nowrap;
             `;
             enBtn.onclick = () => this.setLanguage('en');
             
@@ -430,12 +462,21 @@ class I18nSystem {
         const switcher = document.getElementById('language-switcher');
         if (switcher) {
             const buttons = switcher.querySelectorAll('button');
-            buttons.forEach((btn, index) => {
-                const isActive = (index === 0 && this.currentLanguage === 'ko') || 
-                                (index === 1 && this.currentLanguage === 'en');
-                btn.style.background = isActive ? '#3b82f6' : 'transparent';
-                btn.style.color = isActive ? 'white' : '#6b7280';
-            });
+            
+            // 버튼 텍스트 업데이트
+            if (buttons[0]) {
+                buttons[0].innerHTML = this.translate('lang.switch.korean');
+                buttons[0].title = this.translate('lang.korean');
+                buttons[0].style.background = this.currentLanguage === 'ko' ? '#3b82f6' : 'transparent';
+                buttons[0].style.color = this.currentLanguage === 'ko' ? 'white' : '#6b7280';
+            }
+            
+            if (buttons[1]) {
+                buttons[1].innerHTML = this.translate('lang.switch.english');
+                buttons[1].title = this.translate('lang.english');
+                buttons[1].style.background = this.currentLanguage === 'en' ? '#3b82f6' : 'transparent';
+                buttons[1].style.color = this.currentLanguage === 'en' ? 'white' : '#6b7280';
+            }
         }
     }
     
@@ -443,9 +484,22 @@ class I18nSystem {
         return this.currentLanguage;
     }
     
-    // Helper method for dynamic content
-    t(key) {
-        return this.translate(key);
+    // 헬퍼 메서드
+    t(key, params = {}) {
+        return this.translate(key, params);
+    }
+    
+    // 배열 타입 번역 키를 위한 헬퍼 메서드
+    getHelpSteps() {
+        return [
+            this.translate('help.step1'),
+            this.translate('help.step2'),
+            this.translate('help.step3')
+        ];
+    }
+    
+    getHelpStepsHTML() {
+        return this.translate('help.all');
     }
 }
 
